@@ -1,4 +1,4 @@
-from .models import Testimony, Plaintiff, Victim
+from .models import Testimony, Plaintiff, Victim, AggressionType
 
 SOUDAN_POPULATION = 40_530_000
 
@@ -25,7 +25,11 @@ def depositions_get_by_victim(*, fetched_by: Victim):
 
 def get_statistics():
     """return statistics based on the number of registered aggressions for all types of aggressions"""
-    pass
+    victims = Victim.objects.prefetch_related('aggressions').all()
+    aggressions = AggressionType.objects.all()
+
+    """for aggression in aggressions:
+        nb = victims.filter(aggressions)"""
 
 
 def calculate_stat(aggression_nbr):
