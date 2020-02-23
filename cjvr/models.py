@@ -30,10 +30,10 @@ class Victim(Person):
     status = models.CharField(max_length=10, choices=VICTIM_STATUS)
     aggressions = models.ManyToManyField(AggressionType)
 
-    class Meta:
+    """class Meta:
         constraints = [
             models.UniqueConstraint(fields=['first_name', 'last_name', 'age'], name='unique victim')
-        ]
+        ]"""
 
 
 class Plaintiff(Person):
