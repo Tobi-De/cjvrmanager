@@ -17,30 +17,32 @@ Running the project on the local server
 
 1. Create a new virtual environnement for the project.
   
-  *Using conda
+  .Using conda
     
-    conda create --name cjvr -y
+    ```conda create --name cjvr -y```
   
-  *Using the virtual environnement manager provide with python3
+  .Using the virtual environnement manager provide with python3
     
     Run this commande from the project root
     
-    python3 -m cjvr venv
+    ```python3 -m cjvr venv```
     
 
 2. Activate the virtual environnement.
     
-    *Using conda
+    .Using conda
     
-      conda activate cjvr
+      ```conda activate cjvr```
       
-    *Using venv
+    .Using venv
   
-      deactivate
+      ```deactivate```
       
 3.  Install requirements.
     
-    From the project root run: pip install -r requirements.txt 
+    From the project root run: `
+    
+    ```pip install -r requirements.txt```
 
 
 4. Run `python manage.py makemigrations cjvr` to create the Cjvr_manager migrations.
@@ -53,13 +55,13 @@ Running the project on the local server
     
     From the project root run:
     
-    -python manage.py create_aggressions fakedata.json
+    ```python manage.py create_aggressions fakedata.json
     
-    -python manage.py create_plaintiffs fakedata.json
+    python manage.py create_plaintiffs fakedata.json
     
-    -python manage.py create_testimonies fakedata.json
+    python manage.py create_testimonies fakedata.json
     
-    -python manage.py set_victims_aggression
+    python manage.py set_victims_aggression```
 
 
 2. Start the development server with `python manage.py runserver`
