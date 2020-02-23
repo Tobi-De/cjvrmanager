@@ -11,3 +11,11 @@ class PlaintiffCreationForm(forms.ModelForm):
 
 class TestimonyCreationForm(forms.ModelForm):
     pass
+
+
+class ReportCreationForm(forms.ModelForm):
+    pass
+
+
+class TaskCreationForm(forms.ModelForm):
+    pass
