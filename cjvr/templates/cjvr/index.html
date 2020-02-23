@@ -1,4 +1,8 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
- <h1>Hello popo</h1>
+<ul>
+    {% for plain in plaintiffs %}
+    <li>{{ plain }}</li>
+    {% endfor %}
+</ul>
 {% endblock%}

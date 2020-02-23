@@ -16,7 +16,7 @@ class Person(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-class AgresssionType(models.Model):
+class AggressionType(models.Model):
     name = models.CharField(max_length=30, blank=False)
     description = models.TextField()
 
@@ -28,7 +28,7 @@ class Victim(Person):
     VICTIM_STATUS = (('Alive', 'Alive'), ('Death', 'Death'), ('Unknown', 'Unknown'))
     aggression_place = models.CharField(max_length=60, blank=False)
     status = models.CharField(max_length=10, choices=VICTIM_STATUS)
-    aggressions = models.ManyToManyField(AgresssionType)
+    aggressions = models.ManyToManyField(AggressionType)
 
 
 class Plaintiff(Person):
@@ -40,6 +40,11 @@ class Testimony(models.Model):
     victim = models.ForeignKey(Victim, on_delete=models.CASCADE)
     description = models.TextField()
     register_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['plaintiff', 'victim'], name='unique testimony')
+        ]
 
     def __str__(self):
         return f"{self.plaintiff}|{self.victim}"

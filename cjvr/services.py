@@ -1,13 +1,13 @@
 from .models import Testimony, Plaintiff, Victim
 
 
-def plaintiff_create() -> Plaintiff:
+def plaintiff_create():
     pass
 
 
-def victim_create() -> Victim:
+def victim_create():
     pass
 
 
-def testimony_create() -> Testimony:
+def testimony_create():
     pass
