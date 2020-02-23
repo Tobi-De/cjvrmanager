@@ -1,4 +1,3 @@
-=====
 Cjvr_manager
 =====
 
@@ -19,7 +18,7 @@ Running the project on the local server
   
   * Using conda
     
-    ```bash
+      ```
       conda create --name cjvr -y
       ```
   
@@ -31,7 +30,6 @@ Running the project on the local server
     python3 -m cjvr venv
     ```
     
-
 2. Activate the virtual environnement.
     
     * Using conda
@@ -44,8 +42,8 @@ Running the project on the local server
   
       ```
       deactivate
-      ```
-      
+      ```      
+
 3.  Install requirements.
     
     From the project root run: `
@@ -54,20 +52,17 @@ Running the project on the local server
     pip install -r requirements.txt
     ```
 
-
 4. Run this to create the Cjvr_manager migrations.
   
   ```
   python manage.py makemigrations cjvr
   ``` 
 
-
 5. Run to apply migrations to the database.
 
   ```
   python manage.py migrate
   ``` 
-
 
 5. For testing purpose create fake data
     
@@ -83,9 +78,7 @@ Running the project on the local server
     python manage.py set_victims_aggression
     ```
 
-
 2. Start the development server with `python manage.py runserver`
-
 
 3. Visit http://127.0.0.1:8000 to visit the WebApp.
 
