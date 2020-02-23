@@ -3,6 +3,9 @@ import os
 
 from django.core.management.base import BaseCommand, CommandError
 
+from cjvr.models import Plaintiff
+from cjvr.models import Person
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 
@@ -31,6 +34,12 @@ class Command(BaseCommand):
                 create plaintiff for each one (normalement je devais ajouter des plaignant dans le fichier fakedata.json mais c'est pas encore fait, si tu
                 regarde dans le fichier, c'est a la base du projet tu sauras comment remplir ca)
             """
+            plaintiffs = json_object['Plaintiffs']
+            for plaintiff in plaintiffs :
+                Plaintiff.objects.create(first_name=plaintiff['first_name'], last_name=plaintiff['last_name'],
+                                                age=plaintiff['age'], sexe=plaintiff['sexe'], religion=plaintiff['religion'],
+                                                address=plaintiff['address'], contact=plaintiff['contact'])
+
             print("Plaintiffs add")
         except Exception as e:
             return {e}

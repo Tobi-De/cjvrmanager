@@ -32,5 +32,25 @@
       "name": "destruction et extorsion de biens",
       "description": "vol ou détérioration de biens publics ou non."
     }
+  ],
+  "Plaintiffs": [
+    {
+      "first_name" : "John",
+      "last_name" : "Doe",
+      "age" : 26,
+      "sexe" : "M",
+      "religion": "Catholique",
+      "address" : "Dongola",
+      "contact" : "+22996752200"
+    },
+    {
+      "first_name" : "Smith",
+      "last_name" : "Hélène",
+      "age" : 36,
+      "sexe" : "F",
+      "religion": "Musulmane",
+      "address" : "Atbara",
+      "contact" : "+22996247879"
+    }
   ]
 }
