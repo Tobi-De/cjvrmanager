@@ -71,11 +71,11 @@ Running the project on the local server
     ```
     python manage.py create_aggressions fakedata.json
     
-    python manage.py create_plaintiffs fakedata.json
+    python manage.py create_plaintiffs fakedata.json (not working yet)
     
-    python manage.py create_testimonies fakedata.json
+    python manage.py create_testimonies fakedata.json (not working yet)
     
-    python manage.py set_victims_aggression
+    python manage.py set_victims_aggression (not working yet)
     ```
 
 2. Start the development server with `python manage.py runserver`
