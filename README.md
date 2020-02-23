@@ -27,7 +27,7 @@ Running the project on the local server
     Run this commande from the project root
     
     ```
-    python3 -m cjvr venv
+    python3 -m venv venv
     ```
     
 2. Activate the virtual environnement.
