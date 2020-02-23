@@ -19,8 +19,9 @@ Running the project on the local server
   
   * Using conda
     
-    .. code-block:: console
+    ```bash
       conda create --name cjvr -y
+      ```
   
   * Using the virtual environnement manager provide with python3
     
