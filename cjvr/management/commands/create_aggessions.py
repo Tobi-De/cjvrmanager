@@ -18,6 +18,7 @@ class Command(BaseCommand):
         try:
             file_path = os.path.join(BASE_DIR, options['file'])
             with open(file_path, 'r') as f:
+                # read json from file
                 json_object = json.load(f)
                 Command.add_aggressions(json_object)
         except Exception as e:
@@ -25,6 +26,7 @@ class Command(BaseCommand):
 
     @staticmethod
     def add_aggressions(json_object):
+        # add aggressions to database from json file
         try:
             aggressions = json_object['aggressions']
             for aggression in aggressions:

@@ -24,7 +24,11 @@ class Command(BaseCommand):
     @staticmethod
     def add_victims(json_object):
         try:
-            # code goes here
+            """
+                code goes here
+                bon ici c'est la meme chose que plaignant, et l'attribut pour TypeAgression la zape ca, c'est le dernier fichier qui s'en occupe
+                donc tu parcourt et tu cree 5 victim, vas voir les models pour comprendre mieux comment cree les objets
+            """
             print("Victims add")
         except Exception as e:
             return {e}

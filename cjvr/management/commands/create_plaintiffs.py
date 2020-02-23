@@ -23,8 +23,14 @@ class Command(BaseCommand):
 
     @staticmethod
     def add_plaintiffs(json_object):
+        # add plaintiff to database from json file
         try:
-            # code goes here
+            """
+                code goes here
+                loop over all object in the json_object (inspire toi de create_aggressions qui marche deja)
+                create plaintiff for each one (normalement je devais ajouter des plaignant dans le fichier fakedata.json mais c'est pas encore fait, si tu
+                regarde dans le fichier, c'est a la base du projet tu sauras comment remplir ca)
+            """
             print("Plaintiffs add")
         except Exception as e:
             return {e}
