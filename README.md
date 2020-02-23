@@ -41,7 +41,7 @@ Running the project on the local server
     * Using venv
   
       ```
-      deactivate
+      source venv/bin/activate
       ```      
 
 3.  Install requirements.
