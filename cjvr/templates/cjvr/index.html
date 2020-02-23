@@ -1,8 +1,12 @@
 {% extends 'cjvr/base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-<ul>
-    {% for plain in plaintiffs %}
-    <li>{{ plain }}</li>
-    {% endfor %}
-</ul>
+<div>
+    <h3>Plaingnat formulaire</h3>
+    <p>{{ p_form }}</p>
+    <h3>Victim formulaire</h3>
+    <p>{{ v_form }}</p>
+    <h3>Testimony formulaire</h3>
+    <p>{{ t_form }}</p>
+</div>
 {% endblock%}
