@@ -55,10 +55,18 @@ Running the project on the local server
     ```
 
 
-4. Run ```bash python manage.py makemigrations cjvr``` to create the Cjvr_manager migrations.
+4. Run this to create the Cjvr_manager migrations.
+  
+  ```bash
+  python manage.py makemigrations cjvr
+  ``` 
 
 
-5. Run ``` bash python manage.py migrate``` to apply migrations to the database.
+5. Run to apply migrations to the database.
+
+  ```bash
+  python manage.py migrate
+  ``` 
 
 
 5. For testing purpose create fake data
@@ -66,6 +74,7 @@ Running the project on the local server
     From the project root run:
     
     ```bash
+    
     python manage.py create_aggressions fakedata.json
     
     python manage.py create_plaintiffs fakedata.json
