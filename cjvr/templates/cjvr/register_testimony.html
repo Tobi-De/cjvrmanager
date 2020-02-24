@@ -1,11 +1,15 @@
 {% extends 'cjvr/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>Register Testimony</h1>
-<h2>Infos plaignant</h2>
-<p>{{ p_form | crispy }}</p>
-<h2>Infos victime</h2>
-<p>{{ v_form | crispy }}</p>
-<h2>Decrivez la scene</h2>
-<p>{{ t_form | crispy }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <h1>Register Testimony</h1>
+    <h2>Infos plaignant</h2>
+    <p>{{ p_form | crispy }}</p>
+    <h2>Infos victime</h2>
+    <p>{{ v_form | crispy }}</p>
+    <h2>Decrivez la scene</h2>
+    <p>{{ t_form | crispy }}</p>
+    <button type="submit">Enregister</button>
+</form>
 {% endblock %}
