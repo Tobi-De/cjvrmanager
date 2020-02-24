@@ -51,6 +51,33 @@
       "religion": "Musulmane",
       "address" : "Atbara",
       "contact" : "+22996247879"
+    },
+    {
+      "first_name" : "Dujardin",
+      "last_name" : "Hébénisaire",
+      "age" : 56,
+      "sex" : "Male",
+      "religion": "Evangélique",
+      "address" : "Atbara",
+      "contact" : "+22996000879"
+    },
+    {
+      "first_name" : "John",
+      "last_name" : "Delapoubelle",
+      "age" : 29,
+      "sex" : "Male",
+      "religion": "Evanqelique",
+      "address" : "Khartoum",
+      "contact" : "+22996752200"
+    },
+    {
+      "first_name" : "Laroche",
+      "last_name" : "Irène",
+      "age" : 20,
+      "sex" : "Female",
+      "religion": "Evangelique",
+      "address" : "Khartoum",
+      "contact" : "+22996247879"
     }
   ],
   "victims": [
