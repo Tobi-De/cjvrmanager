@@ -26,6 +26,7 @@ def depositions_get_by_victim(*, fetched_by: Victim):
 def get_statistics():
     """return statistics based on the number of registered aggressions for all types of aggressions"""
     victims = Victim.objects.prefetch_related('aggressions').all()
+    victims_nbr = victims.count()
 
     # this is the dictionary that is gonna be send to the view
     stats = {
@@ -41,13 +42,14 @@ def get_statistics():
 
     # we have 8 aggression type, for each of them we calculate the stat of the number of aggression that was
     # registered for the type we are on, range(1, 9) => 1, 2,....8
-    for i in range(1, 9):
-        for stat in stats:
-            stats[stat] = calculate_stat(victims.filter(aggressions=AggressionType.objects.get(id=i)).count())
+    i = 1
+    for stat in stats.keys():
+        stats[stat] = calculate_stat(victims.filter(aggressions=AggressionType.objects.get(id=i)).count(), victims_nbr)
+        i += 1
 
     return stats
 
 
-def calculate_stat(aggression_nbr):
+def calculate_stat(aggression_nbr, victim_nbr):
     """this is not a selector"""
-    return (aggression_nbr * 100) / SOUDAN_POPULATION
+    return (aggression_nbr * 100) / victim_nbr
