@@ -72,6 +72,8 @@ Running the project on the local server
     python manage.py create_aggressions fakedata.json
     
     python manage.py create_plaintiffs fakedata.json 
+   
+    python manage.py create_victims fakedata.json
     
     python manage.py create_testimonies fakedata.json (not working yet)
     

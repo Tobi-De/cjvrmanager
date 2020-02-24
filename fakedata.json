@@ -52,5 +52,57 @@
       "address" : "Atbara",
       "contact" : "+22996247879"
     }
+  ],
+  "victims": [
+    {
+      "first_name" : "ZANZOU",
+      "last_name" : "Malic",
+      "age" : 16,
+      "sexe" : "F",
+      "religion": "Musulman",
+      "address" : "Atbara",
+      "aggression_place": "Quartier Atbara devant le boutiquiet" ,
+      "status" : "Alive"
+    },
+    {
+      "first_name" : "ZOUZUM",
+      "last_name" : "Malicia",
+      "age" : 21,
+      "sexe" : "F",
+      "religion": "Catholique",
+      "address" : "Dongola",
+      "aggression_place": "Quartier Dongola derrière la cafétéria BobMarley",
+      "status" : "Unknown"
+    },
+    {
+      "first_name" : "YOZOU",
+      "last_name" : "Bob",
+      "age" : 23,
+      "sexe" : "M",
+      "religion": "Catholique",
+      "address" : "Dongola",
+      "aggression_place": "Quartier Dongola devant le baraque du coiffeur bobo",
+      "status" : "Death"
+    },
+    {
+      "first_name" : "YOZODOU",
+      "last_name" : "Mouhamed",
+      "age" : 23,
+      "sexe" : "M",
+      "religion": "Catholique",
+      "address" : "Atbara",
+      "aggression_place": "Quartier Atbara après le carrefour Atbara-Carrefour",
+      "status" : "Alive"
+    },
+    {
+      "first_name" : "John",
+      "last_name" : "deJesus",
+      "age" : 23,
+      "sexe" : "M",
+      "religion": "Musulman",
+      "address" : "Atbara",
+      "aggression_place": "Quartier Atbara dans la ruelle en face de la pharmacie LAvie",
+      "status" : "Death"
+    }
   ]
 }
