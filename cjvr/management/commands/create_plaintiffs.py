@@ -34,4 +34,5 @@ class Command(BaseCommand):
                                          address=plaintiff['address'], contact=plaintiff['contact'])
             print("Plaintiffs add")
         except Exception as e:
+            print(e)
             return {e}

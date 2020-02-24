@@ -75,7 +75,7 @@ Running the project on the local server
    
     python manage.py create_victims fakedata.json
     
-    python manage.py create_testimonies fakedata.json (not working yet)
+    python manage.py create_testimonies fakedata.json 
     
     python manage.py set_victims_aggression (not working yet)
     ```
