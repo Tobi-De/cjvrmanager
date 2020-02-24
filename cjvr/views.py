@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView
 
 from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm
 from .models import Testimony, Victim, Plaintiff
+from .selectors import get_statistics
 from .services import plaintiff_create, victim_create, testimony_create
 
 
@@ -82,4 +83,4 @@ def report_task(request):
 
 
 def statistics_graph(request):
-    pass
+    return render(request, 'cjvr/statistics_graph.html', {"stats": get_statistics()})
