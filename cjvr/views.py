@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
 from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm
@@ -51,7 +51,8 @@ def register_testimony(request):
         if t_form.is_valid() and v_form.is_valid() and p_form.is_valid():
             plaintiff = plaintiff_create(p_form)
             victim = victim_create(v_form)
-            testimony_create(plaintiff, victim, p_form.cleaned_data['description'])
+            testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
+            return redirect('home')
     else:
         t_form = TestimonyCreationForm()
         v_form = VictimCreationForm()

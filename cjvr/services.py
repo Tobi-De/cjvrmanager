@@ -8,7 +8,7 @@ def plaintiff_create(p_form):
                                          sex=p_form.cleaned_data['sex'],
                                          religion=p_form.cleaned_data['religion'],
                                          address=p_form.cleaned_data['address'],
-                                         aggressions=p_form.cleaned_data['contact'])
+                                         contact=p_form.cleaned_data['contact'])
     return plaintiff
 
 
@@ -20,8 +20,8 @@ def victim_create(v_form):
                                    religion=v_form.cleaned_data['religion'],
                                    address=v_form.cleaned_data['address'],
                                    aggression_place=v_form.cleaned_data['aggression_place'],
-                                   status=v_form.cleaned_data['status'],
-                                   aggressions=v_form.cleaned_data['aggressions'])
+                                   status=v_form.cleaned_data['status'])
+    victim.aggressions.set(v_form.cleaned_data['aggressions'])
     return victim
 
 
