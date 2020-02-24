@@ -3,6 +3,8 @@ import os
 from django.core.management.base import BaseCommand, CommandError
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from cjvr.management.commands.utils import generateIntervalle
+from cjvr.models import Victim, AggressionType
 
 
 class Command(BaseCommand):
@@ -26,6 +28,11 @@ class Command(BaseCommand):
                   au final tu dois generer aleatoirement y et z pour pouvoir affecter des aggressions au victims, y et z 
                   doivent etre compris entre 1 et 8 et y <= z
             """
-            pass
+            victims = Victim.objects.all()
+            for victim in victims:
+                list = generateIntervalle()
+                Victim.objects.get(id=victim.id).aggressions.set(AggressionType.objects.filter(id__lte=list[0], id__gte=list[1]))
+
+            print("Victims aggressions add")
         except Exception as e:
             raise CommandError(f"Something went wrong: {e}")

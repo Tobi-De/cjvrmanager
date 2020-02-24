@@ -51,6 +51,33 @@
       "religion": "Musulmane",
       "address" : "Atbara",
       "contact" : "+22996247879"
+    },
+    {
+      "first_name" : "Dujardin",
+      "last_name" : "Hébénisaire",
+      "age" : 56,
+      "sex" : "Male",
+      "religion": "Evangélique",
+      "address" : "Atbara",
+      "contact" : "+22996000879"
+    },
+    {
+      "first_name" : "John",
+      "last_name" : "Delapoubelle",
+      "age" : 29,
+      "sex" : "Male",
+      "religion": "Evanqelique",
+      "address" : "Khartoum",
+      "contact" : "+2292001122"
+    },
+    {
+      "first_name" : "Laroche",
+      "last_name" : "Irène",
+      "age" : 20,
+      "sex" : "Female",
+      "religion": "Evangelique",
+      "address" : "Khartoum",
+      "contact" : "+2299879100"
     }
   ],
   "victims": [
@@ -103,6 +130,23 @@
       "address" : "Atbara",
       "aggression_place": "Quartier Atbara dans la ruelle en face de la pharmacie LAvie",
       "status" : "Death"
+    }
+  ],
+  "testimonies": [
+    {
+      "description" : "C'était un soir de pleine lune, j'ai assisté à cette agression. Je n'ai malheureusement pas pu voir le visage du(des) coupables. Il(s) a (ont) agit comme s'il n'y avait pas de Lois qui régissent ce pays."
+    },
+    {
+      "description" : "Les coupables trouvaient du plaisir à agir ainsi. Ce sont des sauvages, des brigants. J'ai fuis les lieux avant qu'ils n'eurent le temps de me voir. S'il m'avait vu... qu'es ce que je serai devenu... C'est Horrible qu'il existe des personnes de ce genre"
+    },
+    {
+      "description": "Ce matin en rentrant de mon sport, j'ai assisté à cette aggression. C'était une violation des lois en vigueur dans ce pays.Il s'agissait d'un Homme agé, avec un corps musclé, il agissait comme un sauvage. Je ne pouvais pas intervenir car je risquais d'être pris pour cible aussi. Heureusement mon immeuble était à quelques pas du lieu de l'agression. J'ai pu m'y refugié calement. J'espère que les coupables se feront arrêté.   "
+    },
+    {
+      "description": "Après avoir quitter le marché, j'ai assisté à un spetacle épouvantable, une agression dans une ruelle sombre. Je ne pouvais pas intervenir, mon instinct de survie m'a dicté la fuite. Sans sa serais-je là pour vous faire cette disposition? Il faut retrouvé ses coupables pour que je puisse retrouver le sommeil. Le seul détail que j'ai pu retenir était que le(s) coupable(s) portait(ent) une montre en Or"
+    },
+    {
+      "description": "Pendant une promenade de santé, je suis passé devant une von vers 22h15 ou 22h25 où se déroulait une agression. J'ai pris le soin de compter le nombre de coupable. Ils était 3 et l'un d'eux portait un tatouage de serpent sur le bras. Je le sais car c'est un tatouage qui s'illumine dans le noir. Voilà ce que je peux vous dire sur cette agression."
     }
   ]
 }
