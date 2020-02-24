@@ -77,7 +77,7 @@ Running the project on the local server
     
     python manage.py create_testimonies fakedata.json 
     
-    python manage.py set_victims_aggression (not working yet)
+    python manage.py set_victims_aggression 
     ```
 
 2. Start the development server with `python manage.py runserver`
