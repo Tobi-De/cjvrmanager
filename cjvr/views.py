@@ -20,3 +20,43 @@ def home(request):
         "v_form": v_form
     }
     return render(request, 'cjvr/index.html', context)
+
+
+def testimony_list(request):
+    pass
+
+
+def testimony_detail(request, testimony_id):
+    pass
+
+
+def victims_list(request):
+    pass
+
+
+def victim_detail(request):
+    pass
+
+
+def plaintiffs_list(request):
+    pass
+
+
+def plaintiff_detail(request):
+    pass
+
+
+def register_testimony(request):
+    pass
+
+
+def register_report(request, testimony_id):
+    pass
+
+
+def report_detail(request, testimony_id):
+    pass
+
+
+def statistics_graph(request):
+    pass
