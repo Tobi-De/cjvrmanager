@@ -1,4 +1,14 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<h1>Victim Detail</h1>
+<p>{{ victim.first_name }}</p>
+<p>{{ victim.last_name }}</p>
+<p>{{ victim.age }}</p>
+<p>{{ victim.sex }}</p>
+<p>{{ victim.address }}</p>
+<p>{{ victim.religion }}</p>
+<ul>
+    {% for aggression in victim.aggressions.all %}
+    <li>{{ aggression }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

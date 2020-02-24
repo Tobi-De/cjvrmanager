@@ -1,4 +1,9 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
 <h1>Victims list</h1>
+<ul>
+    {% for victim in victims %}
+    <li>{{ victim }} <a href="{% url 'victim-detail' victim.id %}"> >> </a></li>
+    {% endfor %}
+</ul>
 {% endblock %}

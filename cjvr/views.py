@@ -1,15 +1,57 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
-from .forms import (TestimonyCreationForm, VictimCreationForm, PlaintiffCreationForm)
+from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm
+from .models import Testimony, Victim, Plaintiff
+from .services import plaintiff_create, victim_create, testimony_create
 
 
 def home(request):
+    return render(request, 'cjvr/index.html')
+
+
+class TestimonyList(ListView):
+    model = Testimony
+    template_name = 'cjvr/testimony_list.html'
+    context_object_name = 'testimonies'
+    ordering = ['-register_date']
+
+
+class TestimonyDetail(DetailView):
+    model = Testimony
+
+
+class VictimsList(ListView):
+    model = Victim
+    template_name = 'cjvr/victims_list.html'
+    context_object_name = 'victims'
+    ordering = ['-register_date']
+
+
+class VictimDetail(DetailView):
+    model = Victim
+
+
+class PlaintiffsList(ListView):
+    model = Plaintiff
+    template_name = 'cjvr/plaintiffs_list.html'
+    context_object_name = 'plaintiffs'
+    ordering = ['-register_date']
+
+
+class PlaintiffDetail(DetailView):
+    model = Plaintiff
+
+
+def register_testimony(request):
     if request.method == "POST":
         t_form = TestimonyCreationForm(request.POST)
         v_form = VictimCreationForm(request.POST)
         p_form = PlaintiffCreationForm(request.POST)
         if t_form.is_valid() and v_form.is_valid() and p_form.is_valid():
-            pass
+            plaintiff = plaintiff_create(p_form)
+            victim = victim_create(v_form)
+            testimony_create(plaintiff, victim, p_form.cleaned_data['description'])
     else:
         t_form = TestimonyCreationForm()
         v_form = VictimCreationForm()
@@ -19,35 +61,7 @@ def home(request):
         "t_form": t_form,
         "v_form": v_form
     }
-    return render(request, 'cjvr/index.html', context)
-
-
-def testimony_list(request):
-    pass
-
-
-def testimony_detail(request, testimony_id):
-    pass
-
-
-def victims_list(request):
-    pass
-
-
-def victim_detail(request):
-    pass
-
-
-def plaintiffs_list(request):
-    pass
-
-
-def plaintiff_detail(request):
-    pass
-
-
-def register_testimony(request):
-    pass
+    return render(request, 'cjvr/register_testimony.html', context)
 
 
 def register_report(request, testimony_id):
@@ -55,6 +69,14 @@ def register_report(request, testimony_id):
 
 
 def report_detail(request, testimony_id):
+    pass
+
+
+def register_task(request):
+    pass
+
+
+def report_task(request):
     pass
 
 

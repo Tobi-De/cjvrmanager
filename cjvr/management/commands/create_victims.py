@@ -2,6 +2,7 @@ import json
 import os
 
 from django.core.management.base import BaseCommand, CommandError
+
 from cjvr.models import Victim
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -25,17 +26,12 @@ class Command(BaseCommand):
     @staticmethod
     def add_victims(json_object):
         try:
-            """
-                code goes here
-                bon ici c'est la meme chose que plaignant, et l'attribut pour TypeAgression la zape ca, c'est le dernier fichier qui s'en occupe
-                donc tu parcourt et tu cree 5 victim, vas voir les models pour comprendre mieux comment cree les objets
-            """
             victims = json_object['victims']
             for victim in victims:
                 Victim.objects.create(first_name=victim['first_name'], last_name=victim['last_name'],
-                                         age=victim['age'], sexe=victim['sexe'], religion=victim['religion'],
-                                         address=victim['address'], aggression_place=victim['aggression_place'],
-                                     status=victim['status'])
+                                      age=victim['age'], sex=victim['sex'], religion=victim['religion'],
+                                      address=victim['address'], aggression_place=victim['aggression_place'],
+                                      status=victim['status'])
             print("victims add")
         except Exception as e:
             print(e)

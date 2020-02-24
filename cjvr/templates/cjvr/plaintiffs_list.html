@@ -1,4 +1,9 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
 <h1>Plaintiffs List</h1>
+<ul>
+    {% for plaintiff in plaintiffs %}
+    <li>{{ plaintiff }} <a href="{% url 'plaintiff-detail' plaintiff.id %}"> >> </a></li>
+    {% endfor %}
+</ul>
 {% endblock %}

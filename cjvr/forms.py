@@ -6,14 +6,14 @@ from .models import Victim, Plaintiff, Testimony, Task, Report
 class VictimCreationForm(forms.ModelForm):
     class Meta:
         model = Victim
-        fields = ['first_name', 'last_name', 'age', 'sexe', 'religion', 'address', 'aggression_place', 'status',
+        fields = ['first_name', 'last_name', 'age', 'sex', 'religion', 'address', 'aggression_place', 'status',
                   'aggressions']
 
 
 class PlaintiffCreationForm(forms.ModelForm):
     class Meta:
         model = Plaintiff
-        fields = ['first_name', 'last_name', 'age', 'sexe', 'religion', 'address', 'contact']
+        fields = ['first_name', 'last_name', 'age', 'sex', 'religion', 'address', 'contact']
 
 
 class TestimonyCreationForm(forms.ModelForm):

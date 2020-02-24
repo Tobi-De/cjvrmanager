@@ -1,4 +1,9 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
 <h1>Testimony list</h1>
+<ul>
+    {% for testimony in testimonies %}
+    <li>{{ testimony }} <a href="{% url 'testimony-detail' testimony.id %}"> >> </a></li>
+    {% endfor %}
+</ul>
 {% endblock %}

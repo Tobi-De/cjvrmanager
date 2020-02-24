@@ -7,7 +7,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=30, blank=False)
     last_name = models.CharField(max_length=30, blank=False)
     age = models.PositiveIntegerField()
-    sexe = models.CharField(max_length=6, choices=SEX_COICES)
+    sex = models.CharField(max_length=6, choices=SEX_COICES)
     address = models.CharField(max_length=60, blank=False)
     religion = models.CharField(max_length=30)
     register_date = models.DateTimeField(auto_now_add=True)

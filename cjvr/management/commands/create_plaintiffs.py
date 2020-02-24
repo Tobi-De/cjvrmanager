@@ -30,7 +30,7 @@ class Command(BaseCommand):
             plaintiffs = json_object['Plaintiffs']
             for plaintiff in plaintiffs:
                 Plaintiff.objects.create(first_name=plaintiff['first_name'], last_name=plaintiff['last_name'],
-                                         age=plaintiff['age'], sexe=plaintiff['sexe'], religion=plaintiff['religion'],
+                                         age=plaintiff['age'], sex=plaintiff['sex'], religion=plaintiff['religion'],
                                          address=plaintiff['address'], contact=plaintiff['contact'])
             print("Plaintiffs add")
         except Exception as e:
