@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
@@ -5,7 +6,9 @@ from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationF
 from .models import Testimony, Victim, Plaintiff
 from .selectors import get_statistics
 from .services import plaintiff_create, victim_create, testimony_create
-
+from chartjs.views.lines import BaseLineChartView
+from django.views.generic import TemplateView
+import json
 
 def home(request):
     return render(request, 'cjvr/index.html')
@@ -84,3 +87,9 @@ def report_task(request):
 
 def statistics_graph(request):
     return render(request, 'cjvr/statistics_graph.html', {"stats": get_statistics()})
+
+def graph(request):
+    with open("jsonGraphics/graphics.json", "r") as template:
+        data = template.read()
+    return JsonResponse(data)
+

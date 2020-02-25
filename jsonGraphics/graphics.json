@@ -1,0 +1,33 @@
+{
+    "view": "Graphics : Aggressions ",
+    "labels": [
+        "amputation",
+        "assassinat",
+        "viol",
+        "flagellation",
+        "destruction de patrimoine culturel",
+        "atteinte \u00e0 l\u2019int\u00e9grit\u00e9 physique",
+        "maltraitance psychologique",
+        "destruction et extorsion de biens"
+    ],
+    "datasets": [
+        {
+            "backgroundColor": "rgba(202, 201, 197, 0.5)",
+            "borderColor": "rgba(202, 201, 197, 1)",
+            "pointBackgroundColor": "rgba(202, 201, 197, 1)",
+            "pointBorderColor": "#fff",
+            "data": [
+                "0.0",
+                "0.0",
+                "20.0",
+                "40.0",
+                "80.0",
+                "40.0",
+                "0.0",
+                "0.0"
+            ],
+            "label": "Aggressions",
+            "name": "graphics"
+        }
+    ]
+}
