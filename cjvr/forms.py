@@ -32,3 +32,8 @@ class TaskCreationForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['name', 'description']
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=50)
+

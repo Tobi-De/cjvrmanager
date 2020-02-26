@@ -1,8 +1,15 @@
-from .models import Testimony, Plaintiff, Victim, AggressionType
 import json
-import os
 
-SOUDAN_POPULATION = 40_530_000
+from django.db.models import Value
+from django.db.models.functions import Concat
+
+from .models import Testimony, Victim, AggressionType, Plaintiff
+
+
+def person_search(search, model):
+    """Create a new colum full_name using concat and filter though this new column"""
+    return model.objects.annotate(full_name=Concat("first_name", Value(" "), "last_name")).filter(
+        full_name__icontains=search)
 
 
 def depositions_get_by_plaintiff(*, fetched_by: Plaintiff):
@@ -44,26 +51,27 @@ def get_statistics():
 
     # we have 8 aggression type, for each of them we calculate the stat of the number of aggression that was
     # registered for the type we are on, range(1, 9) => 1, 2,....8
-    templateGraphics = dict()
+    template_graphics = dict()
     with open("jsonGraphics/graphics.json", "r") as template:
-        templateGraphics = json.loads(template.read())
+        template_graphics = json.loads(template.read())
 
     template.close()
     i = 1
     for stat in stats.keys():
         stats[stat] = calculate_stat(victims.filter(aggressions=AggressionType.objects.get(id=i)).count(), victims_nbr)
-        if len(templateGraphics["datasets"][0]["data"]) >= 8 :
-            templateGraphics["datasets"][0]["data"].clear()
-        templateGraphics["datasets"][0]["data"].append(str(stats[stat]))
+        if len(template_graphics["datasets"][0]["data"]) >= 8:
+            template_graphics["datasets"][0]["data"].clear()
+        template_graphics["datasets"][0]["data"].append(str(stats[stat]))
         i += 1
 
-    graphicsFinalJson = json.dumps(templateGraphics, indent=4)
+    graphics_final_json = json.dumps(template_graphics, indent=4)
     with open("jsonGraphics/graphics.json", "w") as template:
-        template.write(graphicsFinalJson)
+        template.write(graphics_final_json)
         template.close()
 
+    # here
     with open("cjvr/static/cjvr/graphics.json", "w") as template:
-        template.write(graphicsFinalJson)
+        template.write(graphics_final_json)
     return stats
 
 

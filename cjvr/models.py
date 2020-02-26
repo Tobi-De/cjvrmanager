@@ -15,6 +15,11 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['first_name', 'last_name', 'age'], name='unique person')
+        ]
+
 
 class AggressionType(models.Model):
     name = models.CharField(max_length=30, blank=False)
@@ -29,11 +34,6 @@ class Victim(Person):
     aggression_place = models.CharField(max_length=60, blank=False)
     status = models.CharField(max_length=10, choices=VICTIM_STATUS)
     aggressions = models.ManyToManyField(AggressionType)
-
-    """class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['first_name', 'last_name', 'age'], name='unique victim')
-        ]"""
 
 
 class Plaintiff(Person):

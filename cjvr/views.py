@@ -1,14 +1,11 @@
-from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
 from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm
 from .models import Testimony, Victim, Plaintiff
-from .selectors import get_statistics
+from .selectors import get_statistics, person_search
 from .services import plaintiff_create, victim_create, testimony_create
-from chartjs.views.lines import BaseLineChartView
-from django.views.generic import TemplateView
-import json
+
 
 def home(request):
     return render(request, 'cjvr/index.html')
@@ -31,6 +28,14 @@ class VictimsList(ListView):
     context_object_name = 'victims'
     ordering = ['-register_date']
 
+    def get_queryset(self):
+        result = super(VictimsList, self).get_queryset()
+
+        query = self.request.GET.get('search')
+        if query:
+            result = person_search(query, Victim)
+        return result
+
 
 class VictimDetail(DetailView):
     model = Victim
@@ -41,6 +46,14 @@ class PlaintiffsList(ListView):
     template_name = 'cjvr/plaintiffs_list.html'
     context_object_name = 'plaintiffs'
     ordering = ['-register_date']
+
+    def get_queryset(self):
+        result = super(PlaintiffsList, self).get_queryset()
+
+        query = self.request.GET.get('search')
+        if query:
+            result = person_search(query, Plaintiff)
+        return result
 
 
 class PlaintiffDetail(DetailView):
@@ -73,7 +86,7 @@ def register_report(request, testimony_id):
     pass
 
 
-def report_detail(request, testimony_id):
+def detail_report(request, testimony_id):
     pass
 
 
@@ -81,15 +94,9 @@ def register_task(request):
     pass
 
 
-def report_task(request):
+def detail_task(request):
     pass
 
 
 def statistics_graph(request):
     return render(request, 'cjvr/statistics_graph.html', {"stats": get_statistics()})
-
-def graph(request):
-    with open("jsonGraphics/graphics.json", "r") as template:
-        data = template.read()
-    return JsonResponse(data)
-

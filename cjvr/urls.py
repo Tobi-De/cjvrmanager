@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import (home, TestimonyList, TestimonyDetail, VictimDetail, VictimsList, PlaintiffDetail, PlaintiffsList,
-                    register_testimony, statistics_graph, graph)
+from .views import (TestimonyList, TestimonyDetail, VictimDetail, VictimsList, PlaintiffDetail, PlaintiffsList,
+                    register_testimony, statistics_graph, home)
 
 urlpatterns = [
     path('', home, name="home"),
@@ -13,6 +13,4 @@ urlpatterns = [
     path('plaintiffs/<int:pk>/', PlaintiffDetail.as_view(), name="plaintiff-detail"),
     path('register/testimony/', register_testimony, name="register-testimony"),
     path('statistics/', statistics_graph, name="statistics-graph"),
-    path('/graph/', graph, name="graph"),
-
 ]

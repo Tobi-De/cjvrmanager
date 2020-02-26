@@ -1,6 +1,13 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
 <h1>Victims list</h1>
+
+<form accept-charset="utf-8" action="{% url 'victims' %}" id="searchform" method="get">
+    <button class="searchbutton" type="submit">
+        <i class="fa fa-search"></i>
+    </button>
+    <input class="searchfield" id="searchbox" name="search" placeholder="Search" type="text">
+</form>
 <ul>
     {% for victim in victims %}
     <li>{{ victim }} <a href="{% url 'victim-detail' victim.id %}"> >> </a></li>

@@ -1,6 +1,12 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
 <h1>Plaintiffs List</h1>
+<form accept-charset="utf-8" action="{% url 'plaintiffs' %}" id="searchform" method="get">
+    <button class="searchbutton" type="submit">
+        <i class="fa fa-search"></i>
+    </button>
+    <input class="searchfield" id="searchbox" name="search" placeholder="Search" type="text">
+</form>
 <ul>
     {% for plaintiff in plaintiffs %}
     <li>{{ plaintiff }} <a href="{% url 'plaintiff-detail' plaintiff.id %}"> >> </a></li>
