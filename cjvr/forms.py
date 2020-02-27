@@ -31,7 +31,7 @@ class ReportCreationForm(forms.ModelForm):
 class TaskCreationForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'start_date', 'end_date']
 
 
 class SearchForm(forms.Form):

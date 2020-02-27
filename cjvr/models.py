@@ -1,8 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django import forms
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
 
 
 class Person(models.Model):
@@ -18,10 +15,10 @@ class Person(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-    class Meta:
+    """class Meta:
         constraints = [
             models.UniqueConstraint(fields=['first_name', 'last_name', 'age'], name='unique person')
-        ]
+        ]"""
 
 
 class AggressionType(models.Model):
@@ -40,7 +37,9 @@ class Victim(Person):
 
 
 class Plaintiff(Person):
-    contact = models.CharField(max_length=15, blank=False, unique=True)
+    contact = models.CharField(max_length=15, blank=False, unique=True, error_messages={
+            'unique': "Un plaignant possedant ce contact est deja enregistrer."
+        },)
 
 
 class Testimony(models.Model):
@@ -68,6 +67,9 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
     description = models.TextField()
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    register_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

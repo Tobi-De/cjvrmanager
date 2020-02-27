@@ -1,14 +1,21 @@
 {% extends 'cjvr/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags}}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Rapport</h1>
+    <h1 class="h3 mb-0 text-gray-800">Tache</h1>
 </div>
 <form method="POST">
     {% csrf_token %}
-    {{ report_form | crispy }}
+    {{ task_form | crispy }}
     <br>
     <button class="btn btn-outline-primary" type="submit">Enregister</button>
-    <a class="btn btn-outline-secondary" href="{% url 'testimony-detail' testimony_id %}">Retour</a>
+    <a class="btn btn-outline-secondary" href="{% url 'task-list' %}">Retour</a>
 </form>
 {% endblock %}

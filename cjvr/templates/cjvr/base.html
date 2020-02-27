@@ -55,7 +55,7 @@
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="{% url 'testimonies' %}">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-address-book"></i>
                 <span>Depositions</span>
             </a>
         </li>
@@ -63,7 +63,7 @@
         <hr class="sidebar-divider">
         <li class="nav-item">
             <a class="nav-link" href="{% url 'plaintiffs' %}">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-user-shield"></i>
                 <span>Plaignants</span>
             </a>
         </li>
@@ -71,7 +71,7 @@
         <hr class="sidebar-divider">
         <li class="nav-item">
             <a class="nav-link" href="{% url 'victims' %}">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-user-injured"></i>
                 <span>Victimes</span>
             </a>
         </li>
@@ -81,6 +81,14 @@
             <a class="nav-link" href="{% url 'statistics-graph' %}">
                 <i class="fa-chart-area fa-fw fas"></i>
                 <span>Statistiques et graphes</span>
+            </a>
+        </li>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'task-list' %}">
+                <i class="fas fa-tasks"></i>
+                <span>Taches</span>
             </a>
         </li>
         <!-- Divider -->
@@ -107,8 +115,9 @@
                 </button>
 
                 <!-- Top search bar -->
-                <form accept-charset="utf-8" action="{% url 'search' %}" id="searchform" method="get" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                     <input class="searchfield" id="searchbox" name="q" placeholder="Search" type="text">
+                <form accept-charset="utf-8" action="{% url 'search' %}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="searchform"
+                      method="get">
+                    <input class="searchfield" id="searchbox" name="q" placeholder="Search" type="text">
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search fa-sm"></i>
                     </button>
@@ -147,7 +156,7 @@
                         <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
                            data-toggle="dropdown"
                            href="#" id="userDropdown" role="button">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
                             <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -158,7 +167,8 @@
                                 Profile
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal" href="#">
+                            <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal"
+                               href="{% url 'logout' %}">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>

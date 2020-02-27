@@ -19,7 +19,7 @@
   background-size: cover;
 }
 
-form.user {
+/*form.user {
 
   .custom-checkbox.small {
     label {
@@ -39,7 +39,7 @@ form.user {
     padding: 0.75rem 1rem;
   }
 
-}
+}*/
 
 .btn-google {
   @include button-variant($brand-google, $white);

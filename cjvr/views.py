@@ -1,20 +1,25 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.views.generic import ListView, DetailView
 
-from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm
-from .models import Testimony, Victim, Plaintiff, Report
+from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm, \
+    TaskCreationForm
+from .models import Testimony, Victim, Plaintiff, Report, Task
 from .selectors import get_statistics, person_search, report_by_testimony
 from .services import plaintiff_create, victim_create, testimony_create
 
 
-class TestimonyList(ListView):
+class TestimonyList(LoginRequiredMixin, ListView):
     model = Testimony
     template_name = 'cjvr/testimony_list.html'
     context_object_name = 'testimonies'
     ordering = ['-register_date']
 
 
-class TestimonyDetail(DetailView):
+class TestimonyDetail(LoginRequiredMixin, DetailView):
     model = Testimony
 
     def get_context_data(self, **kwargs):
@@ -25,44 +30,29 @@ class TestimonyDetail(DetailView):
         return context
 
 
-class VictimsList(ListView):
+class VictimsList(LoginRequiredMixin, ListView):
     model = Victim
     template_name = 'cjvr/victims_list.html'
     context_object_name = 'victims'
     ordering = ['-register_date']
 
-    """def get_queryset(self):
-        result = super(VictimsList, self).get_queryset()
 
-        query = self.request.GET.get('search')
-        if query:
-            result = person_search(query, Victim)
-        return result"""
-
-
-class VictimDetail(DetailView):
+class VictimDetail(LoginRequiredMixin, DetailView):
     model = Victim
 
 
-class PlaintiffsList(ListView):
+class PlaintiffsList(LoginRequiredMixin, ListView):
     model = Plaintiff
     template_name = 'cjvr/plaintiffs_list.html'
     context_object_name = 'plaintiffs'
     ordering = ['-register_date']
 
-    """def get_queryset(self):
-        result = super(PlaintiffsList, self).get_queryset()
 
-        query = self.request.GET.get('search')
-        if query:
-            result = person_search(query, Plaintiff)
-        return result"""
-
-
-class PlaintiffDetail(DetailView):
+class PlaintiffDetail(LoginRequiredMixin, DetailView):
     model = Plaintiff
 
 
+@login_required
 def register_testimony(request):
     if request.method == "POST":
         t_form = TestimonyCreationForm(request.POST)
@@ -85,6 +75,7 @@ def register_testimony(request):
     return render(request, 'cjvr/register_testimony.html', context)
 
 
+@login_required
 def register_report(request, testimony_id):
     if request.method == "POST":
         report_form = ReportCreationForm(request.POST)
@@ -95,27 +86,55 @@ def register_report(request, testimony_id):
     else:
         report_form = ReportCreationForm()
     context = {
-        "report_form": report_form
+        "report_form": report_form,
+        "testimony_id": testimony_id
     }
     return render(request, 'cjvr/register_report.html', context)
 
 
-def detail_report(request, testimony_id):
-    pass
-
-
+@login_required
 def register_task(request):
-    pass
+    if request.method == "POST":
+        task_form = TaskCreationForm(request.POST)
+        if task_form.is_valid():
+            if task_form.cleaned_data['end_date'] < task_form.cleaned_data['start_date']:
+                messages.error(request, "Votre date de fin ne peut pas etre avant votre date de debut")
+                return redirect('register-task')
+            else:
+                Task.objects.create(user=request.user, name=task_form.cleaned_data['name'],
+                                    description=task_form.cleaned_data['description'],
+                                    start_date=task_form.cleaned_data['start_date'],
+                                    end_date=task_form.cleaned_data['end_date'])
+                return redirect('task-list')
+    else:
+        task_form = TaskCreationForm(initial={"start_date": timezone.now()})
+    context = {
+        "task_form": task_form
+    }
+    return render(request, 'cjvr/register_task.html', context)
 
 
-def detail_task(request):
-    pass
+class TaskList(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = 'cjvr/task_list.html'
+    context_object_name = 'tasks'
+    ordering = ['-register_date']
 
 
+@login_required
+def delete_task(request, task_id):
+    if request.method == "POST":
+        Task.objects.get(id=task_id).delete()
+        return redirect('task-list')
+    return render(request, 'cjvr/confirm_sup_task.html', {'task': Task.objects.get(id=task_id)})
+
+
+@login_required
 def statistics_graph(request):
     return render(request, 'cjvr/statistics_graph.html', {"stats": get_statistics()})
 
 
+@login_required
 def search_result(request):
     victims = person_search(request.GET.get('q'), Victim)
     plaintiffs = person_search(request.GET.get('q'), Plaintiff)
@@ -126,6 +145,7 @@ def search_result(request):
     return render(request, "cjvr/search_result.html", context)
 
 
+@login_required
 def delete_plaintiff(request, plaintiff_id):
     if request.method == "POST":
         Plaintiff.objects.get(id=plaintiff_id).delete()
@@ -133,6 +153,7 @@ def delete_plaintiff(request, plaintiff_id):
     return render(request, 'cjvr/confirm_sup_plaintiff.html', {'plaintiff': Plaintiff.objects.get(id=plaintiff_id)})
 
 
+@login_required
 def delete_testimony(request, testimony_id):
     if request.method == "POST":
         Testimony.objects.get(id=testimony_id).delete()
@@ -140,6 +161,7 @@ def delete_testimony(request, testimony_id):
     return render(request, 'cjvr/confirm_sup_testimony.html', {'testimony': Testimony.objects.get(id=testimony_id)})
 
 
+@login_required
 def delete_victim(request, victim_id):
     if request.method == "POST":
         Victim.objects.get(id=victim_id).delete()

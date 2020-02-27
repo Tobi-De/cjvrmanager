@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'g+6qh_$($%1!+@)ffquby$k6!g^+2#wp8nwv9tdrh2+&ip^!t)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = []
 
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'cjvr',
+    'cjvr.apps.CjvrConfig',
+    'users.apps.UsersConfig',
     'debug_toolbar',
     'chartjs',
 ]
@@ -122,4 +123,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CRIPSY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'testimonies'
+
+LOGIN_URL = 'login'
