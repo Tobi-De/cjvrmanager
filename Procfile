@@ -1,1 +1,1 @@
-web: gunicorn cjvr_manager.wsgi:application --log-file -
+web: gunicorn Cjvr_manager.wsgi:application --log-file -
