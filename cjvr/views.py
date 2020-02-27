@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 
 from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm, \
     TaskCreationForm
@@ -120,13 +120,18 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'
     ordering = ['-register_date']
 
+    def get_queryset(self):
+        return Task.objects.all()
 
-@login_required
-def delete_task(request, task_id):
-    if request.method == "POST":
-        Task.objects.get(id=task_id).delete()
-        return redirect('task-list')
-    return render(request, 'cjvr/confirm_sup_task.html', {'task': Task.objects.get(id=task_id)})
+
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Task
+    success_url = '/cjvr/'
+    template_name = "cjvr/confirm_sup_task.html"
+
+    def test_func(self):
+        task = self.get_object()
+        return self.request.user == task.user
 
 
 @login_required

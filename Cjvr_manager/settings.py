@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'debug_toolbar',
     'chartjs',
+    'django.contrib.humanize'
 ]
 
 MIDDLEWARE = [

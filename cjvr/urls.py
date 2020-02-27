@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (TestimonyList, TestimonyDetail, VictimDetail, VictimsList, PlaintiffDetail, PlaintiffsList,
                     register_testimony, statistics_graph, search_result, register_report, delete_plaintiff,
-                    delete_testimony, delete_victim, TaskList, register_task, delete_task)
+                    delete_testimony, delete_victim, TaskList, register_task, TaskDeleteView)
 
 urlpatterns = [
     path('', TestimonyList.as_view(), name="testimonies"),
@@ -20,5 +20,5 @@ urlpatterns = [
     path('search/', search_result, name="search"),
     path('tasks/', TaskList.as_view(), name="task-list"),
     path('register/task/', register_task, name="register-task"),
-    path('delete/task/<int:task_id>', delete_task, name="delete-task"),
+    path('delete/task/<int:pk>', TaskDeleteView.as_view(), name="delete-task"),
 ]

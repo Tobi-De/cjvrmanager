@@ -14,9 +14,10 @@
             <p class="card-text">{{ task.description }}</p>
             <b>Start date:</b> {{ task.start_date }} <br>
             <b>End date:</b> {{ task.end_date }}
+            <a class="btn btn-outline-danger" href="{% url 'delete-task' task.id %}">Supprimer</a>
         </div>
         <div class="card-footer">
- <a class="btn btn-outline-danger" href="{% url 'delete-task' task.id %}">Supprimer</a>
+            <b>Cree par:</b> {{ task.user.get_full_name }}
         </div>
     </div>
     {% endfor %}
