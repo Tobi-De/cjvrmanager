@@ -22,7 +22,7 @@ class Person(models.Model):
 
 
 class AggressionType(models.Model):
-    name = models.CharField(max_length=30, blank=False)
+    name = models.CharField(max_length=100, blank=False)
     description = models.TextField()
 
     def __str__(self):
