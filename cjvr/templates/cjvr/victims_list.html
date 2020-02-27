@@ -8,9 +8,9 @@
 <div class="card">
     <h5 class="card-header">{{ victim }}</h5>
     <div class="card-body">
-        <p class="card-text"> Genre: {{ victim.sex }} <br>
-            Status: {{ victim.status }} <br>
-            Lieu de l'aggression: {{ victim.aggression_place }}
+        <p class="card-text"><span class="font-weight-bold"> Genre:</span> {{ victim.sex }} <br>
+           <span class="font-weight-bold"> Status:</span> {{ victim.status }} <br>
+           <span class="font-weight-bold"> Lieu de l'aggression:</span> {{ victim.aggression_place }}
         </p>
         <a class="btn btn-outline-primary" href="{% url 'victim-detail' victim.id %}">Detail</a>
     </div>

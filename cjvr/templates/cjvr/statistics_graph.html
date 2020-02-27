@@ -11,7 +11,7 @@
         <h5 class="card-title text-info">Pourcentages repertorie par aggressions</h5>
         <p class="card-text">
             {% for key, value in stats.items %}
-            {{ key }}: {{ value }} %<br>
+            <span class="font-weight-bold">{{ key }}: </span> {{ value }} %<br>
             {% endfor %}
         </p>
     </div>
@@ -19,7 +19,7 @@
 <br>
 <!--{{ stats }}-->
 
-<canvas height="100" id="myChart" width="100"></canvas>
+<canvas height="150" id="myChart" width="400"></canvas>
 
 <script src="{%  static 'cjvr/js/Chart.min.js' %}"></script>
 <script src="{%  static 'cjvr/js/jquery-1.10.0.min.js' %}"></script>
@@ -27,9 +27,15 @@
 <script type="text/javascript">
  $.get('{% static 'cjvr/graphics.json' %}', function(data) {
                 var ctx = $("#myChart").get(0).getContext("2d");
+                ctx.canvas.width = 300;
+                ctx.canvas.height = 300;
                 new Chart(ctx, {
-                    type: 'line', data: data
+                    type: 'line', data: data,
+                    responsive: true,
+                    maintainAspectRatio: true,
+
                 });
+
             });
 </script>
 {% endblock %}

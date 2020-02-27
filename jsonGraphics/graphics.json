@@ -17,14 +17,14 @@
             "pointBackgroundColor": "rgba(202, 201, 197, 1)",
             "pointBorderColor": "#fff",
             "data": [
+                "0.0",
+                "0.0",
                 "20.0",
                 "40.0",
+                "80.0",
                 "40.0",
-                "60.0",
-                "40.0",
-                "20.0",
-                "20.0",
-                "20.0"
+                "0.0",
+                "0.0"
             ],
             "label": "Aggressions",
             "name": "graphics"

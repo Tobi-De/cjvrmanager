@@ -4,14 +4,14 @@
     <div class="card-body">
         <h5 class="card-title text-primary">{{ plaintiff }}</h5>
         <p class="card-text">
-            Nom: {{ plaintiff.first_name }} <br>
-            Prenom: {{ plaintiff.last_name }} <br>
-            Age: {{ plaintiff.age }} <br>
-            Sexe: {{ plaintiff.sexe }} <br>
-            Contact: {{ plaintiff.contact }} <br>
-            Address: {{ plaintiff.address }} <br>
-            Religion: {{ plaintiff.religion }} <br>
-            Enregistrer le: {{ plaintiff.register_date }} <br>
+            <b> Nom: </b>{{ plaintiff.first_name }} <br>
+            <b>Prenom:</b> {{ plaintiff.last_name }} <br>
+            <b>Age:</b> {{ plaintiff.age }} <br>
+            <b>Sexe:</b> {{ plaintiff.sexe }} <br>
+            <b>Contact:</b> {{ plaintiff.contact }} <br>
+            <b>Address:</b> {{ plaintiff.address }} <br>
+            <b>Religion:</b> {{ plaintiff.religion }} <br>
+            <b>Enregistrer le:</b> {{ plaintiff.register_date }} <br>
         </p>
         <a class="btn btn-outline-primary" href="#" type="button">Ajouter deposition</a>
         <a class="btn btn-outline-danger" href="{% url 'delete-plaintiff' plaintiff.id %}" type="button">Supprimer</a>

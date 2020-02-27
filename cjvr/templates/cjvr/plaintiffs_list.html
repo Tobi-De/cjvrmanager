@@ -8,8 +8,8 @@
 <div class="card">
     <h5 class="card-header">{{ plaintiff }}</h5>
     <div class="card-body">
-        <p class="card-text"> Genre: {{ plaintiff.sex }} <br>
-        Contact: {{ plaintiff.contact }}
+        <p class="card-text"> <b>Genre:</b> {{ plaintiff.sex }} <br>
+        <b>Contact:</b> {{ plaintiff.contact }}
         </p>
         <a class="btn btn-outline-primary" href="{% url 'plaintiff-detail' plaintiff.id %}">Detail</a>
     </div>
