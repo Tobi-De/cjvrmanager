@@ -1,7 +1,77 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<p>{{ testimony.victim }}</p>
-<p>{{ testimony.plaintiff }}</p>
-<p>{{ testimony.description }}</p>
-<p>{{ testimony.register_date }}</p>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Deposition No {{ testimony.id }}</h1>
+    {% if not report %}
+    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+       href="{% url 'register-report' testimony.id %}"><i
+            class="fas fa-plus fa-sm text-white-50"></i>Cree Rapport</a>
+    {% endif %}
+</div>
+<div class="card border-left-primary shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-primary">{{ testimony.plaintiff }}</h5>
+        <p class="card-text">
+            Nom: {{ testimony.plaintiff.first_name }} <br>
+            Prenom: {{ testimony.plaintiff.last_name }} <br>
+            Age: {{ testimony.plaintiff.age }} <br>
+            Sexe: {{ testimony.plaintiff.sexe }} <br>
+            Contact: {{ testimony.plaintiff.contact }} <br>
+            Address: {{ testimony.plaintiff.address }} <br>
+            Religion: {{ testimony.plaintiff.religion }} <br>
+            Enregistrer le: {{ testimony.plaintiff.register_date }} <br>
+        </p>
+    </div>
+</div>
+<br>
+<div class="card border-left-danger shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-danger">{{ testimony.victim }}</h5>
+        <p class="card-text">
+            Nom: {{ testimony.victim.first_name }} <br>
+            Prenom: {{ testimony.victim.last_name }} <br>
+            Age: {{ testimony.victim.age }} <br>
+            Sexe: {{ testimony.victim.sexe }} <br>
+            Contact: {{ testimony.victim.contact }} <br>
+            Address: {{ testimony.victim.address }} <br>
+            Religion: {{ testimony.victim.religion }} <br>
+            status: {{ testimony.victim.status }} <br>
+            Lieu d'aggression: {{ testimony.victim.aggression_place }} <br>
+            Enregistrer le: {{ testimony.victim.register_date }} <br>
+            Aggressions subis: {% for aggression in testimony.victim.aggressions.all %}
+            {{ aggression }} ,
+            {% endfor %}
+        </p>
+    </div>
+</div>
+<br>
+<div class="card border-left-info shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-info">Description</h5>
+        <p class="card-text">
+            {{ testimony.description }}
+        </p>
+    </div>
+    <div class="card-footer">{{ testimony.register_date }}</div>
+</div>
+<br>
+{% if report %}
+<div class="card border-left-info shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-info">Rapport</h5>
+        <p class="card-text">
+            {{ report.content }}
+        </p>
+    </div>
+</div>
+{% endif %}
+<br>
+<br>
+<div aria-label="Basic example" class="btn-group" role="group">
+    <a class="btn btn-outline-danger" href="{% url 'delete-testimony' testimony.id %}" type="button">Supprimer</a>
+    <a class="btn btn-outline-secondary" href="{% url 'testimonies' %}" type="button">Retour</a>
+</div>
+<br>
+<br>
 {% endblock %}

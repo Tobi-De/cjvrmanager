@@ -1,15 +1,25 @@
 {% extends 'cjvr/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Nouvelle Deposition</h1>
+</div>
 <form method="POST">
     {% csrf_token %}
-    <h1>Register Testimony</h1>
-    <h2>Infos plaignant</h2>
-    <p>{{ p_form | crispy }}</p>
-    <h2>Infos victime</h2>
-    <p>{{ v_form | crispy }}</p>
-    <h2>Decrivez la scene</h2>
-    <p>{{ t_form | crispy }}</p>
-    <button type="submit">Enregister</button>
+    <div class="row">
+        <div class="col-xl-6 col-md-6 mb-4 border shadow py-1">
+            <h3>Infos plaignant</h3>
+            <p>{{ p_form | crispy }}</p>
+        </div>
+        <div class="col-xl-6 col-md-6 mb-4 border shadow py-1">
+            <h3>Infos victime</h3>
+            <p>{{ v_form | crispy }}</p>
+        </div>
+        <div class="col-xl-6 col-md-6 mb-4 border shadow py-1">
+            <h3>Decrivez la scene</h3>
+            <p>{{ t_form | crispy }}</p>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Enregister</button>
 </form>
 {% endblock %}

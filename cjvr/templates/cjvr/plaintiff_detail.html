@@ -1,10 +1,21 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<p>{{ plaintiff.first_name }}</p>
-<p>{{ plaintiff.last_name }}</p>
-<p>{{ plaintiff.age }}</p>
-<p>{{ plaintiff.sex }}</p>
-<p>{{ plaintiff.address }}</p>
-<p>{{ plaintiff.religion }}</p>
-<p>{{ plaintiff.contact }}</p>
+<div class="card border-left-primary shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-primary">{{ plaintiff }}</h5>
+        <p class="card-text">
+            Nom: {{ plaintiff.first_name }} <br>
+            Prenom: {{ plaintiff.last_name }} <br>
+            Age: {{ plaintiff.age }} <br>
+            Sexe: {{ plaintiff.sexe }} <br>
+            Contact: {{ plaintiff.contact }} <br>
+            Address: {{ plaintiff.address }} <br>
+            Religion: {{ plaintiff.religion }} <br>
+            Enregistrer le: {{ plaintiff.register_date }} <br>
+        </p>
+        <a class="btn btn-outline-primary" href="#" type="button">Ajouter deposition</a>
+        <a class="btn btn-outline-danger" href="{% url 'delete-plaintiff' plaintiff.id %}" type="button">Supprimer</a>
+        <a class="btn btn-outline-secondary" href="{% url 'plaintiffs' %}" type="button">Retour</a>
+    </div>
+</div>
 {% endblock %}

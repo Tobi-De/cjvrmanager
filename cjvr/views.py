@@ -1,14 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
-from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm
-from .models import Testimony, Victim, Plaintiff
-from .selectors import get_statistics, person_search
+from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm
+from .models import Testimony, Victim, Plaintiff, Report
+from .selectors import get_statistics, person_search, report_by_testimony
 from .services import plaintiff_create, victim_create, testimony_create
-
-
-def home(request):
-    return render(request, 'cjvr/index.html')
 
 
 class TestimonyList(ListView):
@@ -21,6 +17,13 @@ class TestimonyList(ListView):
 class TestimonyDetail(DetailView):
     model = Testimony
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['report'] = report_by_testimony(fetched_by=context['testimony'])
+        return context
+
 
 class VictimsList(ListView):
     model = Victim
@@ -28,13 +31,13 @@ class VictimsList(ListView):
     context_object_name = 'victims'
     ordering = ['-register_date']
 
-    def get_queryset(self):
+    """def get_queryset(self):
         result = super(VictimsList, self).get_queryset()
 
         query = self.request.GET.get('search')
         if query:
             result = person_search(query, Victim)
-        return result
+        return result"""
 
 
 class VictimDetail(DetailView):
@@ -47,13 +50,13 @@ class PlaintiffsList(ListView):
     context_object_name = 'plaintiffs'
     ordering = ['-register_date']
 
-    def get_queryset(self):
+    """def get_queryset(self):
         result = super(PlaintiffsList, self).get_queryset()
 
         query = self.request.GET.get('search')
         if query:
             result = person_search(query, Plaintiff)
-        return result
+        return result"""
 
 
 class PlaintiffDetail(DetailView):
@@ -69,7 +72,7 @@ def register_testimony(request):
             plaintiff = plaintiff_create(p_form)
             victim = victim_create(v_form)
             testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
-            return redirect('home')
+            return redirect('testimonies')
     else:
         t_form = TestimonyCreationForm()
         v_form = VictimCreationForm()
@@ -83,7 +86,18 @@ def register_testimony(request):
 
 
 def register_report(request, testimony_id):
-    pass
+    if request.method == "POST":
+        report_form = ReportCreationForm(request.POST)
+        if report_form.is_valid():
+            Report.objects.create(testimony=Testimony.objects.get(id=testimony_id),
+                                  content=report_form.cleaned_data['content'])
+            return redirect('testimony-detail', testimony_id)
+    else:
+        report_form = ReportCreationForm()
+    context = {
+        "report_form": report_form
+    }
+    return render(request, 'cjvr/register_report.html', context)
 
 
 def detail_report(request, testimony_id):
@@ -100,3 +114,34 @@ def detail_task(request):
 
 def statistics_graph(request):
     return render(request, 'cjvr/statistics_graph.html', {"stats": get_statistics()})
+
+
+def search_result(request):
+    victims = person_search(request.GET.get('q'), Victim)
+    plaintiffs = person_search(request.GET.get('q'), Plaintiff)
+    context = {
+        'victims': victims,
+        'plaintiffs': plaintiffs
+    }
+    return render(request, "cjvr/search_result.html", context)
+
+
+def delete_plaintiff(request, plaintiff_id):
+    if request.method == "POST":
+        Plaintiff.objects.get(id=plaintiff_id).delete()
+        return redirect('plaintiffs')
+    return render(request, 'cjvr/confirm_sup_plaintiff.html', {'plaintiff': Plaintiff.objects.get(id=plaintiff_id)})
+
+
+def delete_testimony(request, testimony_id):
+    if request.method == "POST":
+        Testimony.objects.get(id=testimony_id).delete()
+        return redirect('testimonies')
+    return render(request, 'cjvr/confirm_sup_testimony.html', {'testimony': Testimony.objects.get(id=testimony_id)})
+
+
+def delete_victim(request, victim_id):
+    if request.method == "POST":
+        Victim.objects.get(id=victim_id).delete()
+        return redirect('victims')
+    return render(request, 'cjvr/confirm_sup_victim.html', {'victim': Victim.objects.get(id=victim_id)})

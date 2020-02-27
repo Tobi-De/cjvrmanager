@@ -1,0 +1,32 @@
+{% extends 'cjvr/base.html' %}
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Resultat de la recherche</h1>
+</div>
+{% for victim in victims %}
+<div class="card border-left-danger">
+    <h5 class="card-header">{{ victim }}</h5>
+    <div class="card-body">
+        <p class="card-text"> Genre: {{ victim.sex }} <br>
+            Status: {{ victim.status }} <br>
+            Lieu de l'aggression: {{ victim.aggression_place }}
+        </p>
+        <a class="btn btn-outline-primary" href="{% url 'victim-detail' victim.id %}">Detail</a>
+    </div>
+</div>
+<br>
+{% endfor %}
+{% for plaintiff in plaintiffs %}
+<div class="card border-left-primary">
+    <h5 class="card-header">{{ plaintiff }}</h5>
+    <div class="card-body">
+        <p class="card-text"> Genre: {{ plaintiff.sex }} <br>
+        Contact: {{ plaintiff.contact }}
+        </p>
+        <a class="btn btn-outline-primary" href="{% url 'plaintiff-detail' plaintiff.id %}">Detail</a>
+    </div>
+</div>
+<br>
+{% endfor %}
+{% endblock %}

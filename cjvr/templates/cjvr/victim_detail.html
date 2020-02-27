@@ -1,14 +1,26 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<p>{{ victim.first_name }}</p>
-<p>{{ victim.last_name }}</p>
-<p>{{ victim.age }}</p>
-<p>{{ victim.sex }}</p>
-<p>{{ victim.address }}</p>
-<p>{{ victim.religion }}</p>
-<ul>
-    {% for aggression in victim.aggressions.all %}
-    <li>{{ aggression }}</li>
-    {% endfor %}
-</ul>
+<div class="card border-left-danger shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-danger">{{ victim }}</h5>
+        <p class="card-text">
+            Nom: {{ victim.first_name }} <br>
+            Prenom: {{ victim.last_name }} <br>
+            Age: {{ victim.age }} <br>
+            Sexe: {{ victim.sexe }} <br>
+            Contact: {{ victim.contact }} <br>
+            Address: {{ victim.address }} <br>
+            Religion: {{ victim.religion }} <br>
+            status: {{ victim.status }} <br>
+            Lieu d'aggression: {{ victim.aggression_place }} <br>
+            Enregistrer le: {{ victim.register_date }} <br>
+            Aggressions subis: {% for aggression in victim.aggressions.all %}
+            {{ aggression }} ,
+            {% endfor %}
+        </p>
+        <a class="btn btn-outline-primary" href="#" type="button">Ajouter deposition</a>
+        <a class="btn btn-outline-danger" href="{% url 'delete-victim' victim.id %}" type="button">Supprimer</a>
+        <a class="btn btn-outline-secondary" href="{% url 'victims' %}" type="button">Retour</a>
+    </div>
+</div>
 {% endblock %}

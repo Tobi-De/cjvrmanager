@@ -2,13 +2,27 @@
 {% load static %}
 {% block content %}
 
-<h1>Statistics and graph</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Statistiques et Graphes</h1>
+</div>
+
+<div class="card border-left-info shadow py-2">
+    <div class="card-body">
+        <h5 class="card-title text-info">Pourcentages repertorie par aggressions</h5>
+        <p class="card-text">
+            {% for key, value in stats.items %}
+            {{ key }}: {{ value }} %<br>
+            {% endfor %}
+        </p>
+    </div>
+</div>
+<br>
 <!--{{ stats }}-->
 
-<canvas id="myChart" width="100" height="100"></canvas>
+<canvas height="100" id="myChart" width="100"></canvas>
 
- <script src="{%  static 'cjvr/js/Chart.min.js' %}"></script>
- <script src="{%  static 'cjvr/js/jquery-1.10.0.min.js' %}"></script>
+<script src="{%  static 'cjvr/js/Chart.min.js' %}"></script>
+<script src="{%  static 'cjvr/js/jquery-1.10.0.min.js' %}"></script>
 <!--here -->
 <script type="text/javascript">
  $.get('{% static 'cjvr/graphics.json' %}', function(data) {

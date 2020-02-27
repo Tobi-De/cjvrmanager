@@ -3,7 +3,7 @@ import json
 from django.db.models import Value
 from django.db.models.functions import Concat
 
-from .models import Testimony, Victim, AggressionType, Plaintiff
+from .models import Testimony, Victim, AggressionType, Plaintiff, Report
 
 
 def person_search(search, model):
@@ -78,3 +78,11 @@ def get_statistics():
 def calculate_stat(aggression_nbr, victim_nbr):
     """this is not a selector"""
     return (aggression_nbr * 100) / victim_nbr
+
+
+def report_by_testimony(*, fetched_by: Testimony):
+    reports = Report.objects.select_related('testimony').all()
+    for report in reports:
+        if fetched_by == report.testimony:
+            return report
+    return None

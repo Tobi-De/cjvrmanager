@@ -1,16 +1,20 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<h1>Victims list</h1>
-
-<form accept-charset="utf-8" action="{% url 'victims' %}" id="searchform" method="get">
-    <button class="searchbutton" type="submit">
-        <i class="fa fa-search"></i>
-    </button>
-    <input class="searchfield" id="searchbox" name="search" placeholder="Search" type="text">
-</form>
-<ul>
-    {% for victim in victims %}
-    <li>{{ victim }} <a href="{% url 'victim-detail' victim.id %}"> >> </a></li>
-    {% endfor %}
-</ul>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Liste des Victimes</h1>
+</div>
+{% for victim in victims %}
+<div class="card">
+    <h5 class="card-header">{{ victim }}</h5>
+    <div class="card-body">
+        <p class="card-text"> Genre: {{ victim.sex }} <br>
+            Status: {{ victim.status }} <br>
+            Lieu de l'aggression: {{ victim.aggression_place }}
+        </p>
+        <a class="btn btn-outline-primary" href="{% url 'victim-detail' victim.id %}">Detail</a>
+    </div>
+</div>
+<br>
+{% endfor %}
 {% endblock %}

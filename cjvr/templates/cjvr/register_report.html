@@ -1,5 +1,13 @@
 {% extends 'cjvr/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>Register Report</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Rapport</h1>
+</div>
+<form method="POST">
+    {% csrf_token %}
+    {{report_form | crispy }}
+    <br>
+    <a class="btn btn-outline primary" type="submit">Enregister</a>
+</form>
 {% endblock %}
