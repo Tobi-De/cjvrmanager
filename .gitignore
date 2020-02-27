@@ -105,7 +105,7 @@ ENV/
 
 .DS_Store
 *.sqlite3
-media/
+media/profile_pics/
 *.pyc
 *.db
 *.pid
