@@ -56,6 +56,7 @@ Running the project on the local server
   
   ```
   python manage.py makemigrations cjvr
+  python manage.py makemigrations users
   ``` 
 
 5. Run to apply migrations to the database.

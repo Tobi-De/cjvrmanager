@@ -1,0 +1,26 @@
+{% extends 'cjvr/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+</div>
+<div class="row">
+    <div class="col-xl-6 col-md-6 mb-4">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        </div>
+        <form enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ u_form | crispy }}
+                {{ p_form | crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-primary" type="submit">Mettre a jour</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
