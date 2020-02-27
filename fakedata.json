@@ -17,19 +17,19 @@
       "description": "acte qui consiste à fouetter le corps humain avec un fouet, des\nlanières, ou une tige souple, ou encore tout autre objet du même type."
     },
     {
-      "name": "destruction_de_patrimoine_culturel",
+      "name": "destruction",
       "description": "destruction d’objet d’art, ou tout autre objet appartenant à un pays"
     },
     {
-      "name": "atteinte_à_intégrité_physique",
+      "name": "Blessures",
       "description": "Les atteintes à la personne désignent toutes les formes d'infractions qui ont pour motivation ou pour effet de porter atteinte à l'intégrité physique ou psychologique d'autrui."
     },
     {
-      "name": "maltraitance_psychologique",
+      "name": "psychologique",
       "description": "La violence psychologique, dite aussi violence morale, violence mentale, ou violence émotionnelle, est une forme de violence ou d'abus envers autrui sans qu'une violence physique soit mise en œuvre directement."
     },
     {
-      "name": "destruction_et_extorsion_de_biens",
+      "name": "Vol",
       "description": "vol ou détérioration de biens publics ou non."
     }
   ],
