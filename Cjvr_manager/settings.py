@@ -32,7 +32,7 @@ if os.path.isfile(dotenv_file):
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get("DEBUG") == "True")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".herokuapp.com", "localhost"]
 
 # Application definition
 
