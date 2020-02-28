@@ -1,6 +1,5 @@
 {% extends 'cjvr/base.html' %}
 {% load static %}
-{% load humanize %}
 {% block content %}
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -12,7 +11,7 @@
         <h5 class="card-title text-info">Pourcentages repertorie par aggressions</h5>
         <p class="card-text">
             {% for key, value in stats.items %}
-            <span class="font-weight-bold">{{ key }}: </span> {{ value | intword }} %<br>
+            <span class="font-weight-bold">{{ key }}: </span> {{ value }} %<br>
             {% endfor %}
         </p>
     </div>
