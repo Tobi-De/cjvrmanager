@@ -13,7 +13,7 @@
             <b>Religion:</b> {{ plaintiff.religion }} <br>
             <b>Enregistrer le:</b> {{ plaintiff.register_date }} <br>
         </p>
-        <!--<a class="btn btn-outline-primary" href="#" type="button">Ajouter deposition</a>-->
+        <a class="btn btn-outline-primary" href="{% url 'add-testimony' 'plaintiff' plaintiff.id %}" type="button">Ajouter deposition</a>
         <a class="btn btn-outline-danger" href="{% url 'delete-plaintiff' plaintiff.id %}" type="button">Supprimer</a>
         <a class="btn btn-outline-secondary" href="{% url 'plaintiffs' %}" type="button">Retour</a>
     </div>

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, DeleteView
@@ -62,6 +63,7 @@ def register_testimony(request):
             plaintiff = plaintiff_create(p_form)
             victim = victim_create(v_form)
             testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
+            messages.success(request, "Deposition cree avec succes")
             return redirect('testimonies')
     else:
         t_form = TestimonyCreationForm()
@@ -98,13 +100,14 @@ def register_task(request):
         task_form = TaskCreationForm(request.POST)
         if task_form.is_valid():
             if task_form.cleaned_data['end_date'] < task_form.cleaned_data['start_date']:
-                messages.error(request, "Votre date de fin ne peut pas etre avant votre date de debut")
+                messages.info(request, "Votre date de fin ne peut pas etre avant votre date de debut")
                 return redirect('register-task')
             else:
                 Task.objects.create(user=request.user, name=task_form.cleaned_data['name'],
                                     description=task_form.cleaned_data['description'],
                                     start_date=task_form.cleaned_data['start_date'],
                                     end_date=task_form.cleaned_data['end_date'])
+                messages.success(request, "Tache cree avec succes")
                 return redirect('task-list')
     else:
         task_form = TaskCreationForm(initial={"start_date": timezone.now()})
@@ -124,9 +127,9 @@ class TaskList(LoginRequiredMixin, ListView):
         return Task.objects.all()
 
 
-class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class TaskDeleteView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
-    success_url = '/cjvr/'
+    success_url = '/cjvr/tasks'
     template_name = "cjvr/confirm_sup_task.html"
 
     def test_func(self):
@@ -154,6 +157,7 @@ def search_result(request):
 def delete_plaintiff(request, plaintiff_id):
     if request.method == "POST":
         Plaintiff.objects.get(id=plaintiff_id).delete()
+        messages.success(request, "Plaignant supprimer avec succes")
         return redirect('plaintiffs')
     return render(request, 'cjvr/confirm_sup_plaintiff.html', {'plaintiff': Plaintiff.objects.get(id=plaintiff_id)})
 
@@ -162,6 +166,7 @@ def delete_plaintiff(request, plaintiff_id):
 def delete_testimony(request, testimony_id):
     if request.method == "POST":
         Testimony.objects.get(id=testimony_id).delete()
+        messages.success(request, "Deposition supprime avec succes")
         return redirect('testimonies')
     return render(request, 'cjvr/confirm_sup_testimony.html', {'testimony': Testimony.objects.get(id=testimony_id)})
 
@@ -172,3 +177,37 @@ def delete_victim(request, victim_id):
         Victim.objects.get(id=victim_id).delete()
         return redirect('victims')
     return render(request, 'cjvr/confirm_sup_victim.html', {'victim': Victim.objects.get(id=victim_id)})
+
+
+@login_required
+def add_testimony(request, type, pk):
+    if request.method == "POST":
+        t_form = TestimonyCreationForm(request.POST)
+        if type == "plaintiff":
+            form = VictimCreationForm(request.POST)
+            if form.is_valid() and t_form.is_valid():
+                plaintiff = Plaintiff.objects.get(id=pk)
+                victim = victim_create(form)
+                testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
+                messages.success(request, "Deposition cree avec succes")
+                return redirect('testimonies')
+        else:
+            form = PlaintiffCreationForm(request.POST)
+            if form.is_valid() and t_form.is_valid():
+                victim = Victim.objects.get(id=pk)
+                plaintiff = plaintiff_create(form)
+                testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
+                messages.success(request, "Deposition cree avec succes")
+                return redirect('testimonies')
+    else:
+        t_form = TestimonyCreationForm()
+        if type == "plaintiff":
+            form = VictimCreationForm()
+        else:
+            form = PlaintiffCreationForm()
+    context = {
+        "t_form": t_form,
+        "form": form,
+        "type": type
+    }
+    return render(request, 'cjvr/add_testimony.html', context)

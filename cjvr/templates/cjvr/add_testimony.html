@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'cjvr/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ajouter Deposition</h1>
+</div>
+{% if type == "plaintiff" %}
+<h3>Info Victime</h3>
+{% else %}
+<h3>Infos plaignant</h3>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <h3>Decriver la scene</h3>
+    {{ t_form | crispy }}
+    <br>
+    <button class="btn btn-outline-primary" type="submit">Enregister</button>
+    <a class="btn btn-outline-secondary" href="{% url 'testimonies' %}">Retour</a>
+</form>
+{% endblock %}
