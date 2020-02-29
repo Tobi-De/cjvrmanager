@@ -3,7 +3,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Liste des depositions</h1>
-    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{% url 'add-plaintiff' %}"><i
+    <a class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" href="{% url 'add-plaintiff' %}"><i
             class="fas fa-plus fa-sm text-white-50"></i> Ajouter Deposition</a>
 </div>
 {% for testimony in testimonies %}
@@ -13,9 +13,26 @@
         <h5 class="card-title"><b>Enregistrer le :</b> {{ testimony.register_date }}</h5>
         <p class="card-text"><b>Plaignant :</b> {{ testimony.plaintiff }} <br><b>Victime:</b> {{ testimony.victim }}
         </p>
-        <a class="btn btn-outline-primary" href="{% url 'testimony-detail' testimony.id %}">Detail</a>
+        <a class="btn btn-outline-info" href="{% url 'testimony-detail' testimony.id %}">Detail</a>
     </div>
 </div>
 <br>
 {% endfor %}
+{% if is_paginated %}
+{% if page_obj.has_previous %}
+<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+<a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+{% if page_obj.has_next %}
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+<a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+{% endif %}
+{% endif %}
 {% endblock %}

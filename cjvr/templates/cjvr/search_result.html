@@ -12,19 +12,19 @@
             Status: {{ victim.status }} <br>
             Lieu de l'aggression: {{ victim.aggression_place }}
         </p>
-        <a class="btn btn-outline-primary" href="{% url 'victim-detail' victim.id %}">Detail</a>
+        <a class="btn btn-outline-info" href="{% url 'victim-detail' victim.id %}">Detail</a>
     </div>
 </div>
 <br>
 {% endfor %}
 {% for plaintiff in plaintiffs %}
-<div class="card border-left-primary">
+<div class="card border-left-info">
     <h5 class="card-header">{{ plaintiff }}</h5>
     <div class="card-body">
         <p class="card-text"> Genre: {{ plaintiff.sex }} <br>
-        Contact: {{ plaintiff.contact }}
+            Contact: {{ plaintiff.contact }}
         </p>
-        <a class="btn btn-outline-primary" href="{% url 'plaintiff-detail' plaintiff.id %}">Detail</a>
+        <a class="btn btn-outline-info" href="{% url 'plaintiff-detail' plaintiff.id %}">Detail</a>
     </div>
 </div>
 <br>

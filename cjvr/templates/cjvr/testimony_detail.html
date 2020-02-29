@@ -4,14 +4,14 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Deposition No {{ testimony.id }}</h1>
     {% if not report %}
-    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+    <a class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"
        href="{% url 'register-report' testimony.id %}"><i
             class="fas fa-plus fa-sm text-white-50"></i>Cree Rapport</a>
     {% endif %}
 </div>
-<div class="card border-left-primary shadow py-2">
+<div class="card border-left-info shadow py-2">
     <div class="card-body">
-        <h5 class="card-title text-primary">{{ testimony.plaintiff }}</h5>
+        <h5 class="card-title text-info">{{ testimony.plaintiff }}</h5>
         <p class="card-text">
             <span class="font-weight-bold">Nom:</span> {{ testimony.plaintiff.first_name }} <br>
              <span class="font-weight-bold">Prenom:</span> {{ testimony.plaintiff.last_name }} <br>

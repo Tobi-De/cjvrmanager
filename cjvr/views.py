@@ -18,6 +18,7 @@ class TestimonyList(LoginRequiredMixin, ListView):
     template_name = 'cjvr/testimony_list.html'
     context_object_name = 'testimonies'
     ordering = ['-register_date']
+    paginate_by = 5
 
 
 class TestimonyDetail(LoginRequiredMixin, DetailView):
@@ -36,6 +37,7 @@ class VictimsList(LoginRequiredMixin, ListView):
     template_name = 'cjvr/victims_list.html'
     context_object_name = 'victims'
     ordering = ['-register_date']
+    paginate_by = 5
 
 
 class VictimDetail(LoginRequiredMixin, DetailView):
@@ -47,6 +49,7 @@ class PlaintiffsList(LoginRequiredMixin, ListView):
     template_name = 'cjvr/plaintiffs_list.html'
     context_object_name = 'plaintiffs'
     ordering = ['-register_date']
+    paginate_by = 5
 
 
 class PlaintiffDetail(LoginRequiredMixin, DetailView):

@@ -1,8 +1,8 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<div class="card border-left-primary shadow py-2">
+<div class="card border-left-info shadow py-2">
     <div class="card-body">
-        <h5 class="card-title text-primary">{{ plaintiff }}</h5>
+        <h5 class="card-title text-info">{{ plaintiff }}</h5>
         <p class="card-text">
             <b> Nom: </b>{{ plaintiff.first_name }} <br>
             <b>Prenom:</b> {{ plaintiff.last_name }} <br>
@@ -13,7 +13,7 @@
             <b>Religion:</b> {{ plaintiff.religion }} <br>
             <b>Enregistrer le:</b> {{ plaintiff.register_date }} <br>
         </p>
-        <a class="btn btn-outline-primary" href="{% url 'add-testimony' 'plaintiff' plaintiff.id %}" type="button">Ajouter deposition</a>
+        <a class="btn btn-outline-info" href="{% url 'add-testimony' 'plaintiff' plaintiff.id %}" type="button">Ajouter deposition</a>
         <a class="btn btn-outline-danger" href="{% url 'delete-plaintiff' plaintiff.id %}" type="button">Supprimer</a>
         <a class="btn btn-outline-secondary" href="{% url 'plaintiffs' %}" type="button">Retour</a>
     </div>

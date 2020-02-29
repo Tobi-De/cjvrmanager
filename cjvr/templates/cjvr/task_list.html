@@ -3,21 +3,23 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Liste des Taches</h1>
-    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{% url 'register-task' %}"><i
+    <a class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" href="{% url 'register-task' %}"><i
             class="fas fa-plus fa-sm text-white-50"></i> Ajouter Tache</a>
 </div>
 <div class="row">
     {% for task in tasks %}
-    <div class="card border-primary mb-3">
-        <div class="card-header">{{ task.name }}</div>
-        <div class="card-body text-primary">
-            <p class="card-text">{{ task.description }}</p>
-            <b>Start date:</b> {{ task.start_date }} <br>
-            <b>End date:</b> {{ task.end_date }}
-            <b>Cree par:</b> {{ task.user.username }}
-        </div>
-        <div class="card-footer">
-            <a class="btn btn-outline-danger" href="{% url 'delete-task' task.id %}">Supprimer</a>
+    <div class="col-lg-4 col-sm-6">
+        <div class="card border-info mb-3">
+            <div class="card-header">{{ task.name }}</div>
+            <div class="card-body">
+                <p class="card-text">{{ task.description }}</p>
+                <b>Start date:</b> {{ task.start_date }} <br>
+                <b>End date:</b> {{ task.end_date }}
+                <b>Cree par:</b> {{ task.user.username }}
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-outline-danger" href="{% url 'delete-task' task.id %}">Supprimer</a>
+            </div>
         </div>
     </div>
     {% endfor %}
