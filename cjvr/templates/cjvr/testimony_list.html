@@ -3,15 +3,16 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Liste des depositions</h1>
-    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{% url 'register-testimony' %}"><i
+    <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="{% url 'add-plaintiff' %}"><i
             class="fas fa-plus fa-sm text-white-50"></i> Ajouter Deposition</a>
 </div>
 {% for testimony in testimonies %}
 <div class="card">
     <h5 class="card-header">Deposition No {{ testimony.id }}</h5>
     <div class="card-body">
-        <h5 class="card-title"> <b>Enregistrer le :</b> {{ testimony.register_date }}</h5>
-        <p class="card-text"> <b>Plaignant :</b> {{ testimony.plaintiff }} <br><b>Victime:</b> {{ testimony.victim }} </p>
+        <h5 class="card-title"><b>Enregistrer le :</b> {{ testimony.register_date }}</h5>
+        <p class="card-text"><b>Plaignant :</b> {{ testimony.plaintiff }} <br><b>Victime:</b> {{ testimony.victim }}
+        </p>
         <a class="btn btn-outline-primary" href="{% url 'testimony-detail' testimony.id %}">Detail</a>
     </div>
 </div>

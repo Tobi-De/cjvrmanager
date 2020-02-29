@@ -54,24 +54,44 @@ class PlaintiffDetail(LoginRequiredMixin, DetailView):
 
 
 @login_required
-def register_testimony(request):
+def add_plaintiff(request):
     if request.method == "POST":
         p_form = PlaintiffCreationForm(request.POST)
-        v_form = VictimCreationForm(request.POST)
-        t_form = TestimonyCreationForm(request.POST)
-        if t_form.is_valid() and v_form.is_valid() and p_form.is_valid():
+        if p_form.is_valid():
             plaintiff = plaintiff_create(p_form)
+            messages.success(request, "Plaignant cree avec succes")
+            return redirect('add-victim', plaintiff.id)
+    else:
+        p_form = PlaintiffCreationForm()
+    return render(request, "cjvr/add_plaintiff.html", {"p_form": p_form})
+
+
+@login_required
+def add_victim(request, pl_id):
+    if request.method == "POST":
+        v_form = VictimCreationForm(request.POST)
+        if v_form.is_valid():
             victim = victim_create(v_form)
+            messages.success(request, "Victime cree avec succes")
+            return redirect('register-testimony', pl_id, victim.id)
+    else:
+        v_form = VictimCreationForm()
+    return render(request, "cjvr/add_victim.html", {"v_form": v_form})
+
+
+@login_required
+def register_testimony(request, pl_id, vic_id):
+    if request.method == "POST":
+        t_form = TestimonyCreationForm(request.POST)
+        if t_form.is_valid():
+            plaintiff = Plaintiff.objects.get(id=pl_id)
+            victim = Victim.objects.get(id=vic_id)
             testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
             messages.success(request, "Deposition cree avec succes")
             return redirect('testimonies')
     else:
-        p_form = PlaintiffCreationForm()
-        v_form = VictimCreationForm()
         t_form = TestimonyCreationForm()
     context = {
-        "p_form": p_form,
-        "v_form": v_form,
         "t_form": t_form,
     }
     return render(request, 'cjvr/register_testimony.html', context)
