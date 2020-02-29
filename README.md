@@ -65,7 +65,7 @@ Running the project on the local server
   python manage.py migrate
   ``` 
 
-5. For testing purpose create fake data
+6. For testing purpose create fake data
     
     From the project root run:
     
@@ -81,7 +81,9 @@ Running the project on the local server
     python manage.py set_victims_aggression 
     ```
 
-2. Start the development server with `python manage.py runserver`
+7. Create an environnement variable set like this: DEBUG="True"
 
-3. Visit http://127.0.0.1:8000 to visit the WebApp.
+8. Start the development server with `python manage.py runserver`
+
+9. Visit http://127.0.0.1:8000 to visit the WebApp.
 

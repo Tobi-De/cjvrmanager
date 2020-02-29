@@ -1,20 +1,18 @@
 {% extends 'cjvr/base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<section class="min-vh-100" id="cover">
-    <div id="cover-caption">
-        <div class="row">
-            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4 border">
-                <h1 class="display-6">Description de la scene</h1>
-                <div class="px-2">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ t_form | crispy }}
-                        <br>
-                        <button class="btn btn-outline-info" type="submit">Enregister</button>
-                        <a class="btn btn-outline-secondary" href="{% url 'testimonies' %}">Retour</a>
-                    </form>
-                </div>
+<section class="min-vh-100">
+    <div class="row">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4 border">
+            <h1 class="display-6">Description de la scene</h1>
+            <div class="px-2">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ t_form | crispy }}
+                    <br>
+                    <button class="btn btn-outline-info" type="submit">Enregister</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'testimonies' %}">Retour</a>
+                </form>
             </div>
         </div>
     </div>
