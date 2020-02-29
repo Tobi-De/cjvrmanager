@@ -26,4 +26,4 @@ def victim_create(v_form):
 
 
 def testimony_create(plaintiff, victim, description):
-    return Testimony.objects.create(victim=victim, plaintiff=plaintiff, description=description)
+    return Testimony.objects.create(plaintiff=plaintiff, victim=victim, description=description)

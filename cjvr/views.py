@@ -56,9 +56,9 @@ class PlaintiffDetail(LoginRequiredMixin, DetailView):
 @login_required
 def register_testimony(request):
     if request.method == "POST":
-        t_form = TestimonyCreationForm(request.POST)
-        v_form = VictimCreationForm(request.POST)
         p_form = PlaintiffCreationForm(request.POST)
+        v_form = VictimCreationForm(request.POST)
+        t_form = TestimonyCreationForm(request.POST)
         if t_form.is_valid() and v_form.is_valid() and p_form.is_valid():
             plaintiff = plaintiff_create(p_form)
             victim = victim_create(v_form)
@@ -66,13 +66,13 @@ def register_testimony(request):
             messages.success(request, "Deposition cree avec succes")
             return redirect('testimonies')
     else:
-        t_form = TestimonyCreationForm()
-        v_form = VictimCreationForm()
         p_form = PlaintiffCreationForm()
+        v_form = VictimCreationForm()
+        t_form = TestimonyCreationForm()
     context = {
         "p_form": p_form,
+        "v_form": v_form,
         "t_form": t_form,
-        "v_form": v_form
     }
     return render(request, 'cjvr/register_testimony.html', context)
 

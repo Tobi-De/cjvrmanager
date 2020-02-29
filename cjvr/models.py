@@ -1,24 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-"""class Person(models.Model):
-    SEX_COICES = (('M', 'Male'), ('F', 'Female'), ('U', 'Unsure'))
-    first_name = models.CharField(max_length=30, blank=False)
-    last_name = models.CharField(max_length=30, blank=False)
-    age = models.PositiveIntegerField()
-    sex = models.CharField(max_length=6, choices=SEX_COICES)
-    address = models.CharField(max_length=60, blank=False)
-    religion = models.CharField(max_length=30)
-    register_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['first_name', 'last_name', 'age'], name='unique person')
-        ]"""
-
 
 class AggressionType(models.Model):
     name = models.CharField(max_length=50, blank=False)
