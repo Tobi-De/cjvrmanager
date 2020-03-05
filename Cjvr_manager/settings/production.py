@@ -26,6 +26,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    }
+}
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())

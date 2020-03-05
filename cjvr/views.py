@@ -1,10 +1,14 @@
+import io
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import FileResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, DeleteView
+from reportlab.pdfgen import canvas
 
 from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm, \
     TaskCreationForm
@@ -234,3 +238,23 @@ def add_testimony(request, type, pk):
         "type": type
     }
     return render(request, 'cjvr/add_testimony.html', context)
+
+
+def generate_pdf(request, testimony_id):
+    # create a file-like buffer to receive a pdf data
+    buffer = io.BytesIO()
+
+    testimony = Testimony.objects.get(id=testimony_id)
+    # create the pdf objects using the buffer as it file
+    p = canvas.Canvas(buffer)
+
+    p.drawString(100, 100, testimony.description)
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+
+    # FileResponse sets the Content-Disposition header so that browsers
+    # present the option to save the file.
+    buffer.seek(0)
+    return FileResponse(buffer, as_attachment=True, filename=f'Rapport{testimony_id}.pdf')

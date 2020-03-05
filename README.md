@@ -66,24 +66,31 @@ Running the project on the local server
   ``` 
 
 6. For testing purpose create fake data
-    
-    From the project root run:
+
+    when populating data to the database for the first time, run this from the
+    project root: 
     
     ```
-    python manage.py create_aggressions fakedata.json
+    python manage.py populate_database
+    ```
     
-    python manage.py create_plaintiffs fakedata.json 
+    Use these commands to add specific type of the data to the database :
+    
+    ```
+    1-python manage.py create_aggressions fakedata.json
+    
+    2-python manage.py create_plaintiffs fakedata.json 
    
-    python manage.py create_victims fakedata.json
+    3-python manage.py create_victims fakedata.json
     
-    python manage.py create_testimonies fakedata.json 
+    4-python manage.py create_testimonies fakedata.json 
     
-    python manage.py set_victims_aggression 
+    5-python manage.py set_victims_aggression 
     ```
+    
+    Note: some commands can't be executed without running others(refer to the order)
 
-7. Create an environnement variable set like this: DEBUG="True"
+7. Start the development server with `python manage.py runserver`
 
-8. Start the development server with `python manage.py runserver`
-
-9. Visit http://127.0.0.1:8000 to visit the WebApp.
+8. Visit http://127.0.0.1:8000 to visit the WebApp.
 
