@@ -1,19 +1,21 @@
 import io
+from itertools import chain
 
+from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.http import FileResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, DeleteView
 from reportlab.pdfgen import canvas
 
-from .forms import TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm, \
-    TaskCreationForm
+from .forms import (TestimonyCreationForm, PlaintiffCreationForm, VictimCreationForm, ReportCreationForm,
+                    TaskCreationForm)
 from .models import Testimony, Victim, Plaintiff, Report, Task
-from .selectors import get_statistics, person_search, report_by_testimony
+from .selectors import (get_statistics, person_search, report_by_testimony, depositions_get_by_plaintiff,
+                        depositions_get_by_victim)
 from .services import plaintiff_create, victim_create, testimony_create
 
 
@@ -32,8 +34,28 @@ class TestimonyDetail(LoginRequiredMixin, DetailView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['report'] = report_by_testimony(fetched_by=context['testimony'])
+        context['report'] = report_by_testimony(
+            fetched_by=context['testimony'])
         return context
+
+
+@login_required
+def register_testimony(request, pl_id, vic_id):
+    if request.method == "POST":
+        t_form = TestimonyCreationForm(request.POST)
+        if t_form.is_valid():
+            plaintiff = Plaintiff.objects.get(id=pl_id)
+            victim = Victim.objects.get(id=vic_id)
+            testimony_create(plaintiff, victim,
+                             t_form.cleaned_data['description'])
+            messages.success(request, "Deposition cree avec succes")
+            return redirect('testimonies')
+    else:
+        t_form = TestimonyCreationForm()
+    context = {
+        "t_form": t_form,
+    }
+    return render(request, 'cjvr/register_testimony.html', context)
 
 
 class VictimsList(LoginRequiredMixin, ListView):
@@ -47,30 +69,11 @@ class VictimsList(LoginRequiredMixin, ListView):
 class VictimDetail(LoginRequiredMixin, DetailView):
     model = Victim
 
-
-class PlaintiffsList(LoginRequiredMixin, ListView):
-    model = Plaintiff
-    template_name = 'cjvr/plaintiffs_list.html'
-    context_object_name = 'plaintiffs'
-    ordering = ['-register_date']
-    paginate_by = 5
-
-
-class PlaintiffDetail(LoginRequiredMixin, DetailView):
-    model = Plaintiff
-
-
-@login_required
-def add_plaintiff(request):
-    if request.method == "POST":
-        p_form = PlaintiffCreationForm(request.POST)
-        if p_form.is_valid():
-            plaintiff = plaintiff_create(p_form)
-            messages.success(request, "Plaignant cree avec succes")
-            return redirect('add-victim', plaintiff.id)
-    else:
-        p_form = PlaintiffCreationForm()
-    return render(request, "cjvr/add_plaintiff.html", {"p_form": p_form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['testimonies'] = depositions_get_by_victim(
+            victim=self.get_object())
+        return context
 
 
 @login_required
@@ -86,22 +89,35 @@ def add_victim(request, pl_id):
     return render(request, "cjvr/add_victim.html", {"v_form": v_form})
 
 
+class PlaintiffsList(LoginRequiredMixin, ListView):
+    model = Plaintiff
+    template_name = 'cjvr/plaintiffs_list.html'
+    context_object_name = 'plaintiffs'
+    ordering = ['-register_date']
+    paginate_by = 5
+
+
+class PlaintiffDetail(LoginRequiredMixin, DetailView):
+    model = Plaintiff
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['testimonies'] = depositions_get_by_plaintiff(
+            plaintiff=self.get_object())
+        return context
+
+
 @login_required
-def register_testimony(request, pl_id, vic_id):
+def add_plaintiff(request):
     if request.method == "POST":
-        t_form = TestimonyCreationForm(request.POST)
-        if t_form.is_valid():
-            plaintiff = Plaintiff.objects.get(id=pl_id)
-            victim = Victim.objects.get(id=vic_id)
-            testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
-            messages.success(request, "Deposition cree avec succes")
-            return redirect('testimonies')
+        p_form = PlaintiffCreationForm(request.POST)
+        if p_form.is_valid():
+            plaintiff = plaintiff_create(p_form)
+            messages.success(request, "Plaignant cree avec succes")
+            return redirect('add-victim', plaintiff.id)
     else:
-        t_form = TestimonyCreationForm()
-    context = {
-        "t_form": t_form,
-    }
-    return render(request, 'cjvr/register_testimony.html', context)
+        p_form = PlaintiffCreationForm()
+    return render(request, "cjvr/add_plaintiff.html", {"p_form": p_form})
 
 
 @login_required
@@ -126,16 +142,12 @@ def register_task(request):
     if request.method == "POST":
         task_form = TaskCreationForm(request.POST)
         if task_form.is_valid():
-            if task_form.cleaned_data['end_date'] < task_form.cleaned_data['start_date']:
-                messages.info(request, "Votre date de fin ne peut pas etre avant votre date de debut")
-                return redirect('register-task')
-            else:
-                Task.objects.create(user=request.user, name=task_form.cleaned_data['name'],
-                                    description=task_form.cleaned_data['description'],
-                                    start_date=task_form.cleaned_data['start_date'],
-                                    end_date=task_form.cleaned_data['end_date'])
-                messages.success(request, "Tache cree avec succes")
-                return redirect('task-list')
+            Task.objects.create(user=request.user, name=task_form.cleaned_data['name'],
+                                description=task_form.cleaned_data['description'],
+                                start_date=task_form.cleaned_data['start_date'],
+                                end_date=task_form.cleaned_data['end_date'])
+            messages.success(request, "Tache cree avec succes")
+            return redirect('task-list')
     else:
         task_form = TaskCreationForm(initial={"start_date": timezone.now()})
     context = {
@@ -154,7 +166,7 @@ class TaskList(LoginRequiredMixin, ListView):
         return Task.objects.all()
 
 
-class TaskDeleteView(SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
     success_url = '/cjvr/tasks'
     template_name = "cjvr/confirm_sup_task.html"
@@ -173,9 +185,16 @@ def statistics_graph(request):
 def search_result(request):
     victims = person_search(request.GET.get('q'), Victim)
     plaintiffs = person_search(request.GET.get('q'), Plaintiff)
+    results = sorted(chain(victims, plaintiffs),
+                     key=lambda person: person.register_date, reverse=True)
+
+    paginator = Paginator(results, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
-        'victims': victims,
-        'plaintiffs': plaintiffs
+        'results': results,
+        'page_obj': page_obj
     }
     return render(request, "cjvr/search_result.html", context)
 
@@ -215,7 +234,8 @@ def add_testimony(request, type, pk):
             if form.is_valid() and t_form.is_valid():
                 plaintiff = Plaintiff.objects.get(id=pk)
                 victim = victim_create(form)
-                testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
+                testimony_create(plaintiff, victim,
+                                 t_form.cleaned_data['description'])
                 messages.success(request, "Deposition cree avec succes")
                 return redirect('testimonies')
         else:
@@ -223,7 +243,8 @@ def add_testimony(request, type, pk):
             if form.is_valid() and t_form.is_valid():
                 victim = Victim.objects.get(id=pk)
                 plaintiff = plaintiff_create(form)
-                testimony_create(plaintiff, victim, t_form.cleaned_data['description'])
+                testimony_create(plaintiff, victim,
+                                 t_form.cleaned_data['description'])
                 messages.success(request, "Deposition cree avec succes")
                 return redirect('testimonies')
     else:

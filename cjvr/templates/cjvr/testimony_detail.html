@@ -3,11 +3,11 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Deposition No {{ testimony.id }}</h1>
-    <a class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"
+    {% comment %} <a class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm"
        href="{% url 'generate-pdf' testimony.id %}"><i
-            class="fas fa-download fa-sm text-white-50"></i>Generer Pdf</a>
+            class="fas fa-download fa-sm text-white-50"></i>Generer Pdf</a> {% endcomment %}
 </div>
-<div class="card border-left-info shadow py-2">
+<div class="card border-left-info">
     <div class="card-body">
         <h5 class="card-title text-info">{{ testimony.plaintiff }}</h5>
         <p class="card-text">
@@ -23,7 +23,7 @@
     </div>
 </div>
 <br>
-<div class="card border-left-danger shadow py-2">
+<div class="card border-left-danger">
     <div class="card-body">
         <h5 class="card-title text-danger">{{ testimony.victim }}</h5>
         <p class="card-text">
@@ -45,7 +45,7 @@
     </div>
 </div>
 <br>
-<div class="card border-left-info shadow py-2">
+<div class="card border-left-info">
     <div class="card-body">
         <h5 class="card-title text-info">Description</h5>
         <p class="card-text">
@@ -56,7 +56,7 @@
 </div>
 <br>
 {% if report %}
-<div class="card border-left-info shadow py-2">
+<div class="card border-left-info">
     <div class="card-body">
         <h5 class="card-title text-info">Rapport</h5>
         <p class="card-text">

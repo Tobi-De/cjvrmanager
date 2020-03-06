@@ -4,6 +4,7 @@ from django.db.models import Value
 from django.db.models.functions import Concat
 
 from .models import Testimony, Victim, AggressionType, Plaintiff, Report
+from .utils import calculate_stat
 
 
 def person_search(search, model):
@@ -12,22 +13,22 @@ def person_search(search, model):
         full_name__icontains=search)
 
 
-def depositions_get_by_plaintiff(*, fetched_by: Plaintiff):
+def depositions_get_by_plaintiff(*, plaintiff: Plaintiff):
     """get all deposition and return the one report by the plaintiff"""
-    testimonies = Testimony.objects.select_related('plaintiff').all()
+    testimonies = Testimony.objects.select_related("plaintiff").all()
     p_testimonies = []
     for testimony in testimonies:
-        if testimony.plaintiff == fetched_by:
+        if testimony.plaintiff == plaintiff:
             p_testimonies.append(testimony)
     return p_testimonies
 
 
-def depositions_get_by_victim(*, fetched_by: Victim):
+def depositions_get_by_victim(*, victim: Victim):
     """get all deposition and return the one related to the victim"""
     testimonies = Testimony.objects.select_related('victim').all()
     p_testimonies = []
     for testimony in testimonies:
-        if testimony.victim == fetched_by:
+        if testimony.victim == victim:
             p_testimonies.append(testimony)
     return p_testimonies
 
@@ -58,7 +59,8 @@ def get_statistics():
     template.close()
     i = 1
     for stat in stats.keys():
-        stats[stat] = calculate_stat(victims.filter(aggressions=AggressionType.objects.get(id=i)).count(), victims_nbr)
+        stats[stat] = calculate_stat(victims.filter(
+            aggressions=AggressionType.objects.get(id=i)).count(), victims_nbr)
         if len(template_graphics["datasets"][0]["data"]) >= 8:
             template_graphics["datasets"][0]["data"].clear()
         template_graphics["datasets"][0]["data"].append(str(stats[stat]))
@@ -75,13 +77,8 @@ def get_statistics():
     return stats
 
 
-def calculate_stat(aggression_nbr, victim_nbr):
-    """this is not a selector"""
-    return (aggression_nbr * 100) / victim_nbr
-
-
 def report_by_testimony(*, fetched_by: Testimony):
-    reports = Report.objects.select_related('testimony').all()
+    reports = Report.objects.select_related("testimony").all()
     for report in reports:
         if fetched_by == report.testimony:
             return report

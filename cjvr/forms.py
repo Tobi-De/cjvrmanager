@@ -33,6 +33,13 @@ class TaskCreationForm(forms.ModelForm):
         model = Task
         fields = ['name', 'description', 'start_date', 'end_date']
 
+    def clean_end_date(self):
+        start = self.cleaned_data.get('start_date')
+        end = self.cleaned_data.get('end_date')
+        if start > end:
+            raise forms.ValidationError("Ceci n'est pas une date de fin valide")
+        return end
+
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)

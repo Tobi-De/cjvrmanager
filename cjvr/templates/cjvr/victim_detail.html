@@ -1,6 +1,6 @@
 {% extends 'cjvr/base.html' %}
 {% block content %}
-<div class="card border-left-danger shadow py-2">
+<div class="card border-left-danger">
     <div class="card-body">
         <h5 class="card-title text-danger">{{ victim }}</h5>
         <p class="card-text">
@@ -23,4 +23,21 @@
         <a class="btn btn-outline-secondary" href="{% url 'victims' %}" type="button">Retour</a>
     </div>
 </div>
+<br>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-600">Liste des Deposition faites pour {{ victim }}</h1>
+</div>
+{% for testimony in testimonies %}
+<div class="card">
+    <h5 class="card-header">Deposition No {{ testimony.id }}</h5>
+    <div class="card-body">
+        <h5 class="card-title"><b>Enregistrer le :</b> {{ testimony.register_date }}</h5>
+        <p class="card-text"><b>Plaignant :</b> {{ testimony.plaintiff }} <br><b>Victime:</b> {{ testimony.victim }}
+        </p>
+        <a class="btn btn-outline-info" href="{% url 'testimony-detail' testimony.id %}">Detail</a>
+    </div>
+</div>
+<br>
+{% endfor %}
+<br>
 {% endblock %}

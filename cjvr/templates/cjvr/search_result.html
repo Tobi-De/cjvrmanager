@@ -4,19 +4,28 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Resultat de la recherche</h1>
 </div>
-{% for victim in victims %}
+{% for object in page_obj %}
+{% if object.status %}
 <div class="card border-left-danger">
-    <h5 class="card-header">{{ victim }}</h5>
+{% else %}
+<div class="card border-left-info">
+{% endif %}
+    <h5 class="card-header">{{ object }}</h5>
     <div class="card-body">
-        <p class="card-text"> Genre: {{ victim.sex }} <br>
-            Status: {{ victim.status }} <br>
-            Lieu de l'aggression: {{ victim.aggression_place }}
+        <p class="card-text"> Genre: {{ object.sex }} <br>
+            age: {{ object.age }} <br>
+            Addresse: {{ object.address }}
         </p>
-        <a class="btn btn-outline-info" href="{% url 'victim-detail' victim.id %}">Detail</a>
+        {% if object.status %}
+            <a class="btn btn-outline-info" href="{% url 'victim-detail' object.id %}">Detail</a>
+        {% else %}
+            <a class="btn btn-outline-info" href="{% url 'plaintiff-detail' object.id %}">Detail</a>
+        {% endif %}
+        {% comment %} <a class="btn btn-outline-info" href="{% url 'victim-detail' victim.id %}">Detail</a> {% endcomment %}
     </div>
 </div>
 <br>
-{% endfor %}
+{% comment %} {% endfor %}
 {% for plaintiff in plaintiffs %}
 <div class="card border-left-info">
     <h5 class="card-header">{{ plaintiff }}</h5>
@@ -27,6 +36,21 @@
         <a class="btn btn-outline-info" href="{% url 'plaintiff-detail' plaintiff.id %}">Detail</a>
     </div>
 </div>
-<br>
+<br> {% endcomment %}
 {% endfor %}
+{% if page_obj.has_previous %}
+<a class="btn btn-outline-info mb-4" href="?q={{ request.GET.q }}&amp;page=1">First</a>
+<a class="btn btn-outline-info mb-4" href="?q=&amp;page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<a class="btn btn-info mb-4" href="?q={{ request.GET.q }}&amp;page={{ num }}">{{ num }}</a>
+{% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+<a class="btn btn-outline-info mb-4" href="?q={{ request.GET.q }}&amp;page={{ num }}">{{ num }}</a>
+{% endif %}
+{% endfor %}
+{% if page_obj.has_next %}
+<a class="btn btn-outline-info mb-4" href="?q={{ request.GET.q }}&amp;page={{ page_obj.next_page_number }}">Next</a>
+<a class="btn btn-outline-info mb-4" href="?q={{ request.GET.q }}&amp;page={{ page_obj.paginator.num_pages }}">Last</a>
+{% endif %}
 {% endblock %}
