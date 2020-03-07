@@ -15,22 +15,12 @@ def person_search(search, model):
 
 def depositions_get_by_plaintiff(*, plaintiff: Plaintiff):
     """get all deposition and return the one report by the plaintiff"""
-    testimonies = Testimony.objects.select_related("plaintiff").all()
-    p_testimonies = []
-    for testimony in testimonies:
-        if testimony.plaintiff == plaintiff:
-            p_testimonies.append(testimony)
-    return p_testimonies
+    return Testimony.objects.select_related("plaintiff").filter(plaintiff=plaintiff)
 
 
 def depositions_get_by_victim(*, victim: Victim):
     """get all deposition and return the one related to the victim"""
-    testimonies = Testimony.objects.select_related('victim').all()
-    p_testimonies = []
-    for testimony in testimonies:
-        if testimony.victim == victim:
-            p_testimonies.append(testimony)
-    return p_testimonies
+    return Testimony.objects.select_related('victim').filter(victim=victim)
 
 
 def get_statistics():

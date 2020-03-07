@@ -24,6 +24,6 @@ urlpatterns = [
     path('tasks/', TaskList.as_view(), name="task-list"),
     path('register/task/', register_task, name="register-task"),
     path('delete/task/<int:pk>', TaskDeleteView.as_view(), name="delete-task"),
-    path('testimony/<str:type>/<int:pk>', add_testimony, name="add-testimony"),
+    path('testimony/<str:model>/<int:pk>', add_testimony, name="add-testimony"),
     path('pdf/<int:testimony_id>', generate_pdf, name="generate-pdf"),
 ]

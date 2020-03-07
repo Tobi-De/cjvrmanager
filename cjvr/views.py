@@ -2,6 +2,7 @@ import io
 from itertools import chain
 
 from django.core.paginator import Paginator
+from django.core.cache import cache
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -19,12 +20,21 @@ from .selectors import (get_statistics, person_search, report_by_testimony, depo
 from .services import plaintiff_create, victim_create, testimony_create
 
 
+TESTIMONY_KEY = "testimony.all"
+
+
 class TestimonyList(LoginRequiredMixin, ListView):
     model = Testimony
     template_name = 'cjvr/testimony_list.html'
     context_object_name = 'testimonies'
-    ordering = ['-register_date']
     paginate_by = 5
+
+    def get_queryset(self):
+        testimonies = cache.get(TESTIMONY_KEY)
+        if not testimonies:
+            testimonies = Testimony.objects.all().order_by("-register_date")
+            cache.set(TESTIMONY_KEY, testimonies)
+        return testimonies
 
 
 class TestimonyDetail(LoginRequiredMixin, DetailView):
@@ -49,6 +59,8 @@ def register_testimony(request, pl_id, vic_id):
             testimony_create(plaintiff, victim,
                              t_form.cleaned_data['description'])
             messages.success(request, "Deposition cree avec succes")
+            cache.set(TESTIMONY_KEY, Testimony.objects.all().order_by(
+                "-register_date"))
             return redirect('testimonies')
     else:
         t_form = TestimonyCreationForm()
@@ -162,9 +174,6 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'
     ordering = ['-register_date']
 
-    def get_queryset(self):
-        return Task.objects.all()
-
 
 class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
@@ -213,6 +222,8 @@ def delete_testimony(request, testimony_id):
     if request.method == "POST":
         Testimony.objects.get(id=testimony_id).delete()
         messages.success(request, "Deposition supprime avec succes")
+        cache.set(TESTIMONY_KEY, Testimony.objects.all().order_by(
+            "-register_date"))
         return redirect('testimonies')
     return render(request, 'cjvr/confirm_sup_testimony.html', {'testimony': Testimony.objects.get(id=testimony_id)})
 
@@ -226,10 +237,10 @@ def delete_victim(request, victim_id):
 
 
 @login_required
-def add_testimony(request, type, pk):
+def add_testimony(request, model, pk):
     if request.method == "POST":
         t_form = TestimonyCreationForm(request.POST)
-        if type == "plaintiff":
+        if model == "Plaintiff":
             form = VictimCreationForm(request.POST)
             if form.is_valid() and t_form.is_valid():
                 plaintiff = Plaintiff.objects.get(id=pk)
@@ -237,6 +248,8 @@ def add_testimony(request, type, pk):
                 testimony_create(plaintiff, victim,
                                  t_form.cleaned_data['description'])
                 messages.success(request, "Deposition cree avec succes")
+                cache.set(TESTIMONY_KEY, Testimony.objects.all().order_by(
+                    "-register_date"))
                 return redirect('testimonies')
         else:
             form = PlaintiffCreationForm(request.POST)
@@ -246,17 +259,19 @@ def add_testimony(request, type, pk):
                 testimony_create(plaintiff, victim,
                                  t_form.cleaned_data['description'])
                 messages.success(request, "Deposition cree avec succes")
+                cache.set(TESTIMONY_KEY, Testimony.objects.all().order_by(
+                    "-register_date"))
                 return redirect('testimonies')
     else:
         t_form = TestimonyCreationForm()
-        if type == "plaintiff":
+        if model == "Plaintiff":
             form = VictimCreationForm()
         else:
             form = PlaintiffCreationForm()
     context = {
         "t_form": t_form,
         "form": form,
-        "type": type
+        "model": model
     }
     return render(request, 'cjvr/add_testimony.html', context)
 

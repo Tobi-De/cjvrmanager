@@ -1,4 +1,5 @@
 <!doctype html>
+{% load cache %}
 {% load static %}
 <html lang="fr">
 <head>
@@ -27,6 +28,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
+    {% cache None sidebar %}
     <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
@@ -96,6 +98,7 @@
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
     </ul>
+    {% endcache %}
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -105,6 +108,7 @@
         <div id="content">
 
             <!-- Topbar -->
+            {% cache None topbar request.user.username %}
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                 <!-- Sidebar Toggle (Topbar) -->
@@ -176,6 +180,7 @@
                     </li>
                 </ul>
             </nav>
+            {% endcache %}
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->

@@ -5,6 +5,11 @@
     <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4 border">
             <h1 class="display-6">Ajouter Deposition</h1>
+            {% if model == "Plaintiff" %}
+            <h3 class="display-6">Infos Victime</h3>
+            {% else %}
+            <h3 class="display-6">Infos Plaignant</h3>
+            {% endif %}
             <div class="px-2">
                 <form method="POST">
                     {% csrf_token %}
@@ -19,4 +24,5 @@
         </div>
     </div>
 </section>
+<br>
 {% endblock %}
