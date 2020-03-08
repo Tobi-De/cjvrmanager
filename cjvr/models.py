@@ -19,14 +19,16 @@ class Victim(models.Model):
     address = models.CharField(max_length=60, blank=False)
     religion = models.CharField(max_length=30)
     register_date = models.DateTimeField(auto_now_add=True)
-    VICTIM_STATUS = (('Alive', 'Alive'), ('Death', 'Death'), ('Unknown', 'Unknown'))
+    VICTIM_STATUS = (('Alive', 'Alive'), ('Death', 'Death'),
+                     ('Unknown', 'Unknown'))
     aggression_place = models.CharField(max_length=60, blank=False)
     status = models.CharField(max_length=10, choices=VICTIM_STATUS)
     aggressions = models.ManyToManyField(AggressionType)
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['first_name', 'last_name', 'age'], name='unique person')
+            models.UniqueConstraint(
+                fields=['first_name', 'last_name', 'age'], name='unique person')
         ]
 
     def __str__(self):
@@ -58,11 +60,12 @@ class Testimony(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['plaintiff', 'victim'], name='unique testimony')
+            models.UniqueConstraint(
+                fields=['plaintiff', 'victim'], name='unique testimony')
         ]
 
     def __str__(self):
-        return f"{self.plaintiff}|{self.victim}"
+        return f"Deposition No{self.id}"
 
 
 class Report(models.Model):

@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'cjvr.apps.CjvrConfig',
     'users.apps.UsersConfig',
     'chartjs',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    'coverage'
 ]
 
 MIDDLEWARE = [

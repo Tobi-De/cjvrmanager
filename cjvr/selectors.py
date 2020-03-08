@@ -67,9 +67,5 @@ def get_statistics():
     return stats
 
 
-def report_by_testimony(*, fetched_by: Testimony):
-    reports = Report.objects.select_related("testimony").all()
-    for report in reports:
-        if fetched_by == report.testimony:
-            return report
-    return None
+def report_by_testimony(*, testimony: Testimony):
+    return Report.objects.select_related("testimony").filter(testimony=testimony)

@@ -45,7 +45,7 @@ class TestimonyDetail(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['report'] = report_by_testimony(
-            fetched_by=context['testimony'])
+            testimony=self.get_object())
         return context
 
 
