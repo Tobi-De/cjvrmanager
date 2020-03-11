@@ -50,7 +50,7 @@ defusedxml==0.6.0
 Deprecated==1.2.7
 distlib==0.3.0
 distributed==2.5.2
-Django==3.0.1
+Django==3.0.3
 django-allauth==0.41.0
 django-crispy-forms==1.8.1
 docutils==0.15.2
