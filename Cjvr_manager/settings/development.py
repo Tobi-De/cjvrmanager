@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['testserver', 'localhost']
 
@@ -14,4 +14,3 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-

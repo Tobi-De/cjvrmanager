@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'g+6qh_$($%1!+@)ffquby$k6!g^+2#wp8nwv9tdrh2+&ip^!t)'
+SECRET_KEY = config('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
