@@ -3,7 +3,7 @@ import django_heroku
 
 from .base import *
 
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = ['.herokuapp.com']
 
