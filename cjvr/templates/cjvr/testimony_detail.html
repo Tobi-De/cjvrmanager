@@ -70,7 +70,7 @@
     {% if not report %}
     <a class="btn btn-outline-info" href="{% url 'register-report' testimony.id %}" type="button">Ecrire rapport</a>
     {% endif %}
-    <a class="btn btn-outline-danger" href="{% url 'delete-testimony' testimony.id %}" type="button">Supprimer</a>
+{#    <a class="btn btn-outline-danger" href="{% url 'delete-testimony' testimony.id %}" type="button">Supprimer</a>#}
     <a class="btn btn-outline-secondary" href="{% url 'testimonies' %}" type="button">Retour</a>
 </div>
 {% endblock %}

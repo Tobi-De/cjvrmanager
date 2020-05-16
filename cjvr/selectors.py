@@ -68,4 +68,4 @@ def get_statistics():
 
 
 def report_by_testimony(*, testimony: Testimony):
-    return Report.objects.select_related("testimony").filter(testimony=testimony)
+    return Report.objects.select_related("testimony").filter(testimony=testimony).first()
