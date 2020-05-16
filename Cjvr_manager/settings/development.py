@@ -1,8 +1,12 @@
 from .base import *
 
-DEBUG = config('DEBUG', cast=bool)
+#DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['testserver', 'localhost']
+DEBUG = False
+
+SECRET_KEY = "62ff8c6f23ec1565da6fe7f623aa7314b1e37513f367c3eb"
+
+ALLOWED_HOSTS = ['testserver', 'localhost', "172.105.120.229"]
 
 INSTALLED_APPS.append('debug_toolbar')
 
