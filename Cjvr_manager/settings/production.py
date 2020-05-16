@@ -1,14 +1,23 @@
-import dj_database_url
 import django_heroku
 
 from .base import *
 
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+SECRET_KEY = "62ff8c6f23ec1565da6fe7f623aa7314b1e37513f367c3eb"
 
-DATABASES = {'default': dj_database_url.config(
-    conn_max_age=600, ssl_require=True)}
+ALLOWED_HOSTS = ["172.105.120.229"]
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "cjvr",
+        "USER": "tobi",
+        "PASSWORD": "**blumen**",
+        "HOST": "django-server",
+        "PORT":  "5432",
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
