@@ -3,7 +3,7 @@ from .base import *
 DEBUG = config('DEBUG', cast=bool)
 
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 INSTALLED_APPS.append('debug_toolbar')
 
