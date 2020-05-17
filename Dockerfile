@@ -7,4 +7,6 @@ RUN mkdir -p /usr/src/data
 WORKDIR /app
 COPY ./ /app
 
+RUN sudo apt-get install postgresql-contrib libpq-dev gcc python3-dev
+
 RUN pip install -r requirements.txt
