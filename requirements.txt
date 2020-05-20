@@ -21,12 +21,10 @@ Pillow==7.0.0
 psycopg2-binary
 public==2019.4.13
 pycodestyle==2.5.0
-pylibmc==1.6.1
 python-decouple==3.3
 python-dotenv==0.11.0
 pytz==2019.3
 reportlab==3.5.34
-selenium==3.141.0
 sqlparse==0.3.0
 urllib3==1.25.8
 values==2019.4.13
