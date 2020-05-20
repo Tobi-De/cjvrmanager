@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "dockerfileLines": [
     "FROM library/python:3.8-slim-buster",
-    "RUN apt-get update && apt-get upgrade && apt-get install -y libpq-dev build-essential make g++ bash git openssh postgresql-dev curl",
+    "RUN apt-get update && apt-get install -y libpq-dev build-essential gettext",
     "RUN mkdir -p /usr/src/app",
     "WORKDIR /usr/src/app",
     "COPY . /usr/src/app",
