@@ -6,7 +6,7 @@ DEBUG = False
 
 SECRET_KEY = "62ff8c6f23ec1565da6fe7f623aa7314b1e37513f367c3eb"
 
-ALLOWED_HOSTS = ["172.105.120.229"]
+ALLOWED_HOSTS = ["172.105.120.229", "*"]
 
 DATABASES = {
     "default": {
