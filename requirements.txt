@@ -17,7 +17,7 @@ django-model-utils==3.1.1
 easy-thumbnails==2.5
 env-file==2019.4.13
 gunicorn==20.0.4
-Pillow==7.0.0
+Pillow>=7.1.0 
 psycopg2-binary
 public==2019.4.13
 pycodestyle==2.5.0
