@@ -26,6 +26,6 @@ python-dotenv==0.11.0
 pytz==2019.3
 reportlab==3.5.34
 sqlparse==0.3.0
-urllib3==1.25.8
+urllib3==1.26.5
 values==2019.4.13
 whitenoise==5.0.1
